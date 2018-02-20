@@ -35,8 +35,8 @@ class Commutes extends React.Component {
             name="deptOrArival"
             type="checkbox"
             value={this.state.deptOrArival}
-            onChange={(e) => { this.onChange(e); }}
             deleteCommute={this.props.deleteCommute}
+            onChange={(e) => { this.onChange(e); }}
           />
           <input
             name="time"
