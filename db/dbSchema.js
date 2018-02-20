@@ -27,11 +27,13 @@ var Commute = sequelize.define('commute', {
 })
 
 var Place = sequelize.define('place', {
-  
+
 })
 
 var User = sequelize.define('user', {
-
+  // incrementing id number
+  // name
+  // password (plain text)
 })
 
 Commute.belongsTo('place', {as: 'origin'})

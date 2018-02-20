@@ -26,6 +26,8 @@ class App extends React.Component {
     return (<div>
       <h1>WeatherOrNot</h1>
       {/* <List items={this.state.items}/> */}
+      <h2>User...</h2>
+      <Users />
     </div>)
   }
 }

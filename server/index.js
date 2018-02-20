@@ -31,7 +31,7 @@ app.get('/search', function(req,res){
 app.get('/weather', function(req,res){
 	let rootUrl = 'https://api.darksky.net/forecast'
 	let APIKey = apiHelpers.darkSkyAPI
-	let lat = req.lat || '40.750487' 
+	let lat = req.lat || '40.750487'
  	let long =  req.lng  || '-73.976401'
  	let requestUrl = rootUrl + '/' + APIKey + '/' + lat + ',' + long;
 
@@ -57,4 +57,3 @@ app.get('/items', function (req, res) {
 app.listen(8080, function() {
   console.log('listening on port 8080!');
 });
-
