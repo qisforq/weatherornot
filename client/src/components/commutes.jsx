@@ -9,7 +9,7 @@ class Commutes extends React.Component {
       time: '',
       deptOrArival: '',
       origin: '',
-      dept: '',
+      dest: '',
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -55,9 +55,9 @@ class Commutes extends React.Component {
           ))}
 
           <input
-            name="dept"
+            name="dest"
             type="select"
-            value={this.state.dept}
+            value={this.state.dest}
             onChange={(e) => { this.onChange(e); }}
           />
           {this.props.places.map(place => (
