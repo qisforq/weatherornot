@@ -35,6 +35,7 @@ class Commutes extends React.Component {
             name="deptOrArival"
             type="checkbox"
             value={this.state.deptOrArival}
+            deleteCommute={this.props.deleteCommute}
             onChange={(e) => { this.onChange(e); }}
             deleteCommute={this.props.deleteCommute}
           />
