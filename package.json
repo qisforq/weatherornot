@@ -1,0 +1,19 @@
+{
+  "name": "weatherornot",
+  "version": "1.0.0",
+  "description": "Greenfield project for Riley, Manos, Eric and Quentin",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hr-jonson/weatherornot.git"
+  },
+  "author": "HR-Jonson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hr-jonson/weatherornot/issues"
+  },
+  "homepage": "https://github.com/hr-jonson/weatherornot#readme"
+}
