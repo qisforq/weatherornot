@@ -2,13 +2,14 @@ import React from 'react';
 import CommuteItem from './CommuteItem';
 
 class Commutes extends React.Component {
-  constructor(props) { // expecting to have commutes, places, addCommuteHandler passed down in props.
+// expecting to have commutes, places, addCommuteHandler, and deleteCommuteHandler passed down in props.
+  constructor(props) {
     super(props);
     this.state = {
       time: '',
       deptOrArival: '',
       origin: '',
-      dept: '',
+      dest: '',
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -26,6 +27,7 @@ class Commutes extends React.Component {
           (<CommuteItem
             key={commute.id}
             commute={commute}
+            deleteCommute={this.props.deleteCommute}
           />))}
         </div>
         <div>
@@ -33,7 +35,9 @@ class Commutes extends React.Component {
             name="deptOrArival"
             type="checkbox"
             value={this.state.deptOrArival}
+            deleteCommute={this.props.deleteCommute}
             onChange={(e) => { this.onChange(e); }}
+            deleteCommute={this.props.deleteCommute}
           />
           <input
             name="time"
@@ -52,9 +56,9 @@ class Commutes extends React.Component {
           ))}
 
           <input
-            name="dept"
+            name="dest"
             type="select"
-            value={this.state.dept}
+            value={this.state.dest}
             onChange={(e) => { this.onChange(e); }}
           />
           {this.props.places.map(place => (
