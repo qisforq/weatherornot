@@ -25,62 +25,10 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>WeatherOrNot</h1>
+      {/* <List items={this.state.items}/> */}
     </div>)
   }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // $.ajax({
-    //   url: '/weather', 
-    //   type: 'GET',
-    //   headers: {"Content-Type": "application/json"},
-    //   success: (data) => {
-    //     console.log(data)
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('err', err);
-    //   }
-    // });
-
-
-
-
-
-
-
-
-
-
-
-
-    // $.ajax({
-    //   url: '/search', 
-    //   type: 'GET',
-    //   dataType: 'json',
-    //   success: (data) => {
-    //     console.log(data)
-    //     this.setState({
-    //       items: data
-    //     })
-    //   },
-    //   error: (err) => {
-    //     console.log('err', err);
-    //   }
-    // });
