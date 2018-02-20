@@ -4,7 +4,10 @@
   "description": "Greenfield project for Riley, Manos, Eric and Quentin",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node server/index.js",
+    "server-dev": "nodemon server/index.js",
+    "react-dev": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,22 @@
   "bugs": {
     "url": "https://github.com/hr-jonson/weatherornot/issues"
   },
-  "homepage": "https://github.com/hr-jonson/weatherornot#readme"
+  "homepage": "https://github.com/hr-jonson/weatherornot#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "eslint": "^4.18.0",
+    "express": "^4.16.2",
+    "node": "^8.9.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "webpack": "^3.11.0"
+  }
 }
