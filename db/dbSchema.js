@@ -17,13 +17,24 @@ sequelize.authenticate().complete(function (err) {
   }
  });
 
-var Commute = sequelize.define('Commute', {
+var Commute = sequelize.define('commute', {
   id: {type: Sequelize.UUID, primaryKey: true},
   name: Sequelize.STRING,
   time: Sequelize.INTEGER,
-a_or_d: {type: Sequelize.STRING, }
+  a_or_d: Sequelize.STRING(1)
   // origin
   // dest
 })
 
-Commute.belongsTo('User', {as: 'User'})
+var Place = sequelize.define('place', {
+  
+})
+
+var User = sequelize.define('user', {
+
+})
+
+Commute.belongsTo('place', {as: 'origin'})
+Commute.belongsTo('place', {as: 'dest'})
+Commute.belongsTo('user', {as: 'user'})
+Place.belongsTo('user', {as: 'user'})
