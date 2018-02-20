@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Users from './components/Users.jsx'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      //
+    this.state = { 
+      items: []
     }
+  }
+
+  componentDidMount() {
+
+    axios.get('/weather').then((data) => {
+      console.log('darksky',data)
+     })
+
+    axios.get('/search').then((data) => {
+      console.log('MapsAPI',data)
+    })
+
   }
 
   render () {
@@ -16,7 +28,7 @@ class App extends React.Component {
       {/* <List items={this.state.items}/> */}
     </div>)
   }
-
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
