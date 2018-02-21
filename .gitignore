@@ -2,3 +2,4 @@ node_modules
 client/dist/bin.js
 .DS_Store
 package-lock.json
+server/config.js
