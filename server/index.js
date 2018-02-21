@@ -17,17 +17,55 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 // Users
 app.post('/users', (req, res) => {
+  // expecting body: {username: USERNAME}
+  const { username } = req.body;
 
+  // check if user exists
+  db.query(`SELECT * FROM users WHERE username="${username}"`, (err, results) => {
+    if (err) {
+      console.log(err);
+      res.send('error');
+      return;
+    }
+    if (!results.length) {
+      db.query(`INSERT INTO users (username) VALUES ("${username}");`, (err, results) => {
+        if (err) {
+          console.log(err);
+          res.send('error');
+          return;
+        }
+        res.send('Added new user');
+      });
+    } else {
+      res.status(500).send('USER EXISTS');
+    }
+  });
 });
 
 app.get('/users', (req, res) => {
-
+  // Will send back all of user's data... do this later
 });
 
 
 // Commutes
 app.post('/commutes', (req, res) => {
 
+  const {
+    org, dest,
+    aOrD, name,
+    time, username,
+  } = req.body;
+
+  const unQuery = `SELECT id FROM users WHERE username="${username}"`;
+  const query = `INSERT INTO commutes (origin, destination, arriveordepart, name, time, username) VALUES ("${org.id}", "${dest.id}", "${aOrD}", "${name}", "${time}", (${unQuery}));`;
+  db.query(query, (err) => {
+    if (err) {
+      console.log(err);
+      res.send('IT BROKE');
+      return;
+    }
+    res.send('Posted commute!');
+  });
 });
 
 app.get('/commutes', (req, res) => {

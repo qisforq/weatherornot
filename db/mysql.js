@@ -1,4 +1,5 @@
-const mysql = require('mysql');
+const Promise = require('bluebird')
+const mysql = require('mysql')
 
 const db = mysql.createConnection({
   host: 'localhost',

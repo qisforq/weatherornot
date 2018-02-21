@@ -18,6 +18,7 @@ CREATE TABLE places (
 
 CREATE TABLE commutes (
 	id INTEGER AUTO_INCREMENT NOT NULL,
+	time VARCHAR(255) NOT NULL,
 	origin INTEGER NOT NULL,
 	destination INTEGER NOT NULL,
 	arriveordepart VARCHAR(1) NOT NULL,
