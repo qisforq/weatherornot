@@ -23,7 +23,7 @@ class Places extends React.Component {
 
   search(e) {
     e.preventDefault();
-    console.log('SEARCHED!', address, placeType);
+    console.log('SEARCHED! Address:', address, 'placeType:', placeType);
     let { address, placeType } = this.state;
     this.props.sendAddress(address, placeType);
   }
