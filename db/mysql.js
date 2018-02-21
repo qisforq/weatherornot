@@ -1,11 +1,11 @@
-const mysql = require('mysql')
+const mysql = require('mysql');
 
-let db = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'weather'
-})
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'weather',
+});
 
 db.connect((err)=> {
 	if (err) {
@@ -16,5 +16,5 @@ db.connect((err)=> {
 })
 
 module.exports = {
-	db : db
-}
+  db: db,
+};
