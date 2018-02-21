@@ -40,6 +40,6 @@ exports.getWeather = (place) => {
   return axios.get(`${rootUrl}/${APIKey}/${place.lat},${place.lng}`);
 };
 
-const geo = geocoder({
+exports.geo = geocoder({
   key: config.geocodeAPI,
 });
