@@ -13,7 +13,7 @@ db.connect((err)=> {
 	} else {
 		console.log('db weather connected')
 	}
-})
+}) 
 
 module.exports = {
   db: db,

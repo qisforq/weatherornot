@@ -23,14 +23,14 @@ exports.Commute = sequelize.define('commute', {
   // origin
   origin: {
     type: Sequelize.INTEGER,
- 
+
     references: {
       // This is a reference to another model
       model: 'place',
- 
+
       // This is the column name of the referenced model
       key: 'id',
- 
+
       // This declares when to check the foreign key constraint. PostgreSQL only.
       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     },
@@ -38,28 +38,28 @@ exports.Commute = sequelize.define('commute', {
   // dest
     destination: {
       type: Sequelize.INTEGER,
-  
+
       references: {
         // This is a reference to another model
         model: 'place',
-  
+
         // This is the column name of the referenced model
         key: 'id',
-  
+
         // This declares when to check the foreign key constraint. PostgreSQL only.
         deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
       },
     },
     user: {
       type: Sequelize.INTEGER,
-  
+
       references: {
         // This is a reference to another model
         model: 'user',
-  
+
         // This is the column name of the referenced model
         key: 'id',
-  
+
         // This declares when to check the foreign key constraint. PostgreSQL only.
         deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
       },
