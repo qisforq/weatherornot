@@ -12,6 +12,17 @@ class App extends React.Component {
       places: ['home', 'work'],
     };
     this.sendAddress.bind(this)
+      items: [],
+      username: null
+    }
+    // this.handleName = this.handleName.bind(this)
+  }
+
+  handleName(name) {
+    this.state.username = name
+    // app.post('/user', function(req, res) {
+      console.log('user posted');
+    // })
   }
 
 
@@ -46,6 +57,9 @@ class App extends React.Component {
   render() {
     return (<div>
       <h1>WeatherOrNot</h1>
+      <h1>User...</h1>
+      <Users handleName={this.handleName} username={this.state.username}/>
+    </div>)
       <Places places={this.state.places} sendAddress={this.sendAddress} />
       {/* <List items={this.state.items}/> */}
     </div>);
