@@ -4,4 +4,4 @@ const CommuteItem = ({ commute }) => (
   <div />
 );
 
-export default Commutes;
+export default CommuteItem;

@@ -2,7 +2,8 @@ import React from 'react';
 import CommuteItem from './CommuteItem.jsx';
 
 class Commutes extends React.Component {
-  constructor(props) { // expecting to have commutes, places, addCommuteHandler passed down in props.
+  constructor(props) {
+    // expecting to have commutes, places, addCommuteHandler passed down in props.
     super(props);
     this.state = {
       time: '',
