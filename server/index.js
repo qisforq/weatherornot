@@ -1,8 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios')
+var geocoder = require('google-geocoder');
 // var items = require('../database-mysql');
-
 var app = express();
 var apiHelpers = require('./apiHelpers.js')
 app.use(bodyParser.json())
@@ -43,6 +43,18 @@ app.get('/weather', function(req,res){
 	     console.log(error);
     })
 })
+
+ 
+var geo = geocoder({
+  key: apiHelpers.geocodeAPI
+});
+ 
+geo.find('223 Edenbridge Dr, Toronto', function(err, res){
+	console.log(res)
+	console.log(err)
+  // process response object 
+});
+
 
 app.get('/items', function (req, res) {
   items.selectAll(function(err, data) {
