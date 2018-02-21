@@ -1,5 +1,6 @@
 import React from 'react';
 import PlaceItem from './PlaceItem.jsx';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 class Places extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class Places extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.search = this.search.bind(this);
     this.toggleAddPlace = this.toggleAddPlace.bind(this);
+    this.onAutocompleteChange = this.onAutocompleteChange.bind(this)
   }
 
   onChange(e) {
@@ -33,7 +35,17 @@ class Places extends React.Component {
     });
   }
 
+  onAutocompleteChange(address) {
+    this.setState({address})
+  }
+
   render() {
+    const inputProps = {
+      value: this.state.address,
+      onChange: this.onAutocompleteChange
+    }
+
+
     return (
       <div>
         <div className="placesBlock">
@@ -46,13 +58,14 @@ class Places extends React.Component {
                 <option value="home">Home</option>
                 <option value="work">Work</option>
               </select>
-              <input
+              <PlacesAutocomplete inputProps={inputProps} />
+              {/* <input
                 name="address"
                 type="text"
                 value={this.state.address}
                 placeholder="Enter address"
                 onChange={(e) => { this.onChange(e); }}
-              />
+              /> */}
               <button type="submit">Submit</button>
             </form>
           ) : (
