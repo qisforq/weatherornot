@@ -22,6 +22,7 @@
   "homepage": "https://github.com/hr-jonson/weatherornot#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "google-geocoder": "^0.2.1",
