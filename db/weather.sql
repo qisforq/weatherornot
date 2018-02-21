@@ -37,3 +37,4 @@ ALTER TABLE commutes  ADD FOREIGN KEY (destination) REFERENCES places(`id`);
 ALTER TABLE commutes  ADD FOREIGN KEY (username) REFERENCES users(`id`);
 ALTER TABLE places  ADD FOREIGN KEY (username) REFERENCES users(`id`);
 
+
