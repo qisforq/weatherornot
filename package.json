@@ -25,6 +25,7 @@
     "express": "^4.16.2",
     "google-geocoder": "^0.2.1",
     "mysql": "^2.15.0",
+    "mysql2": "^1.5.2",
     "node": "^8.9.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
