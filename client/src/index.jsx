@@ -48,7 +48,13 @@ class App extends React.Component {
       <h1>WeatherOrNot</h1>
       <Places places={this.state.places} sendAddress={this.sendAddress} />
       {/* <List items={this.state.items}/> */}
+<<<<<<< HEAD
     </div>);
+=======
+      <h2>User...</h2>
+      <Users />
+    </div>)
+>>>>>>> a few lines
   }
 }
 

@@ -25,6 +25,7 @@ exports.Commute = sequelize.define('commute', {
   // dest
 });
 
+<<<<<<< HEAD
 exports.Place = sequelize.define('place', {
   name: Sequelize.STRING(10),
   lat: Sequelize.STRING,
@@ -43,3 +44,19 @@ exports.User = sequelize.define('user', {
 // exports.Commute.belongsTo('place', { as: 'dest' });
 // exports.Commute.belongsTo('user', { as: 'user' });
 // exports.Place.belongsTo('user', { as: 'user' });
+=======
+var Place = sequelize.define('place', {
+
+})
+
+var User = sequelize.define('user', {
+  // incrementing id number
+  // name
+  // password (plain text)
+})
+
+Commute.belongsTo('place', {as: 'origin'})
+Commute.belongsTo('place', {as: 'dest'})
+Commute.belongsTo('user', {as: 'user'})
+Place.belongsTo('user', {as: 'user'})
+>>>>>>> a few lines
