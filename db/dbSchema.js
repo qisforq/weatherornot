@@ -1,40 +1,45 @@
-const Sequelize = require('sequelize')
-const path = require('path')
-const mysql = require('mysql')
+const Sequelize = require('sequelize');
+const mysql = require('mysql2'); // Is this required to be required?
 
-var dbOptions = { dialect: 'mysql', host: 'localhost', port: 8080 }
+let dbOptions = { dialect: 'mysql', host: 'localhost', port: 8080 };
 if (process.env.PORT) {
-  dbOptions = 'Something else' //need to find hosted (mlabs like solution for mysql)
-};
+  dbOptions = 'Something else'; // need to find hosted (mlabs like solution for mysql)
+}
 
-const sequelize = new Sequelize('weather', 'jonson', null, dbOptions)
+const sequelize = new Sequelize('weather', 'jonson', null, dbOptions);
 
-sequelize.authenticate().complete(function (err) {
+sequelize.authenticate().then((err) => {
   if (err) {
-     console.log('There is connection in ERROR');
+    console.log('There is connection in ERROR');
   } else {
-     console.log('Connection has been established successfully');
+    console.log('Connection has been established successfully');
   }
- });
+});
 
-var Commute = sequelize.define('commute', {
-  id: {type: Sequelize.UUID, primaryKey: true},
+exports.Commute = sequelize.define('commute', {
+  id: { type: Sequelize.UUID, primaryKey: true },
   name: Sequelize.STRING,
   time: Sequelize.INTEGER,
-  a_or_d: Sequelize.STRING(1)
+  a_or_d: Sequelize.STRING(1),
   // origin
   // dest
-})
+});
 
-var Place = sequelize.define('place', {
-  
-})
+exports.Place = sequelize.define('place', {
+  name: Sequelize.STRING(10),
+  lat: Sequelize.STRING,
+  lng: Sequelize.STRING,
+  // icon
+});
 
-var User = sequelize.define('user', {
+exports.User = sequelize.define('user', {
+  id: { type: Sequelize.UUID, primaryKey: true },
+  name: Sequelize.STRING,
+  // password
+});
 
-})
-
-Commute.belongsTo('place', {as: 'origin'})
-Commute.belongsTo('place', {as: 'dest'})
-Commute.belongsTo('user', {as: 'user'})
-Place.belongsTo('user', {as: 'user'})
+//Some issue with foreign keys
+// exports.Commute.belongsTo('place', { as: 'origin' });
+// exports.Commute.belongsTo('place', { as: 'dest' });
+// exports.Commute.belongsTo('user', { as: 'user' });
+// exports.Place.belongsTo('user', { as: 'user' });
