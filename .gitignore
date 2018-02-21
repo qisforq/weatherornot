@@ -3,5 +3,10 @@ bundle.js
 package-lock.json
 client/dist/bin.js
 .DS_Store
+<<<<<<< HEAD
 client/dist/bundle.js
 package-lock.json
+=======
+package-lock.json
+server/config.js
+>>>>>>> Added routes file
