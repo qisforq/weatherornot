@@ -24,11 +24,14 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "google-geocoder": "^0.2.1",
+    "location-autocomplete": "^1.2.1",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.2",
     "node": "^8.9.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-load-script": "0.0.6",
+    "react-places-autocomplete": "^6.1.2",
     "sequelize": "^4.33.4"
   },
   "devDependencies": {

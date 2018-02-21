@@ -1,6 +1,8 @@
 import React from 'react';
 import PlaceItem from './PlaceItem.jsx';
+import config from '../../../server/config.js'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import LocationAutocomplete from 'location-autocomplete';
 
 class Places extends React.Component {
   constructor(props) {
@@ -23,9 +25,9 @@ class Places extends React.Component {
 
   search(e) {
     e.preventDefault();
-    console.log('SEARCHED! Address:', address, 'placeType:', placeType);
     let { address, placeType } = this.state;
     this.props.sendAddress(address, placeType);
+    console.log('SEARCHED! Address:', address, 'placeType:', placeType);
   }
 
   toggleAddPlace() {
@@ -66,6 +68,15 @@ class Places extends React.Component {
                 placeholder="Enter address"
                 onChange={(e) => { this.onChange(e); }}
               /> */}
+              <LocationAutocomplete
+                name="address"
+                placeholder="Enter Address"
+                targetArea="New York, NY"
+                locationType="(regions)"
+                googleAPIKey= config.geocodeAPI
+                onChange={() => {}}
+                onDropdownSelect={() => {}}
+              />
               <button type="submit">Submit</button>
             </form>
           ) : (
