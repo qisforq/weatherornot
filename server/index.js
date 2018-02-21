@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const api = require('./apiHelpers.js');
 const path = require('path');
-const db = require('../db/mysql.js');
+const { db } = require('../db/mysql.js');
 const config = require('./config.js');
 const geocoder = require('google-geocoder')({
   key: config.geocodeAPI,
@@ -42,26 +42,40 @@ app.delete('/commutes', (req, res) => {
 // Places
 app.post('/places', (req, res) => {
   // req.body = {address, placeType, lat, lng}
+  const {
+    address,
+    placeType,
+    lat,
+    lng,
+    username,
+  } = req.body;
 
-  // if name of place exists, send back error
+  if (db.query(`SELECT * FROM places WHERE name=${placeType};`).length) {
+    console.log('place exists with that name');
+    res.status(500).send('err');
+    return;
+  }
 
-  const {address, placeType, lat, lng} = req.body
-
-  
-
-  console.log('req.body', req.body);
-  if (lat && lng) {
-    const query = `INSERT INTO places (name, latitude, longitude, username) VALUES ("${placeType}", "${lat}", "${lng}", "${unQuery}")`
-    db.query(query, () => {
-
-    })
-  } else if (address) {
+  if (!lat && !lng && address) {
     geocoder.find(address, (err, geoData) => {
       console.log('geocoder works');
       if (geoData !== undefined) {
         lat = geoData[0].location.lat;
         lng = geoData[0].location.lng;
       }
+    });
+  }
+
+  if (lat && lng) {
+    const unQuery = `SELECT id FROM users WHERE username="${username}"`;
+    const query = `INSERT INTO places (name, latitude, longitude, username) VALUES ("${placeType}", "${lat}", "${lng}", (${unQuery}));`;
+    db.query(query, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('error');
+        return;
+      }
+      res.send();
     });
   } else {
     res.status(400).send('Sorry, the address you submitted is not valid');
