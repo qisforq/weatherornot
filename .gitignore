@@ -3,7 +3,12 @@ bundle.js
 package-lock.json
 client/dist/bin.js
 .DS_Store
+<<<<<<< HEAD
 client/dist/bundle.js
 package-lock.json
 package-lock.json
 server/config.js
+=======
+package-lock.json
+server/config.js
+>>>>>>> 475e71682fa2350a77cb760322534c6271d40f6c
