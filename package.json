@@ -7,7 +7,8 @@
     "test": "test",
     "start": "node server/index.js",
     "server-dev": "nodemon server/index.js",
-    "react-dev": "webpack -d --watch"
+    "react-dev": "webpack -d --watch",
+    "sql-dev": "mysql -u root < db/weather.sql"
   },
   "repository": {
     "type": "git",
