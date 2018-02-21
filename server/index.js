@@ -25,11 +25,11 @@ app.post('/commutes', (req, res) => {
 
 })
 
-app.get('/commutes', (req,res) => {
+app.get('/commutes', (req, res) => {
 
 })
 
-app.delete('/commutes', (req,res) => {
+app.delete('/commutes', (req, res) => {
 
 })
 
@@ -39,23 +39,23 @@ app.post('/places', (req, res) => {
 
 })
 
-app.get('/places', (req,res) => {
+app.get('/places', (req, res) => {
 
 })
 
-app.delete('/places', (req,res) => {
+app.delete('/places', (req, res) => {
 
 })
 
 
 //Timeline
-app.get('/timeline', (req,res) => {
+app.get('/timeline', (req, res) => {
 
 })
 
 
 //Status
-app.get('/status', (req,res) => {
+app.get('/status', (req, res) => {
 
 })
 
