@@ -11,18 +11,18 @@ CREATE TABLE places (
 	name VARCHAR(255) UNIQUE NOT NULL,
 	latitude VARCHAR(255) NOT NULL,
 	longitude VARCHAR(255) NOT NULL,
-	username VARCHAR(255) NOT NULL,
+	username INTEGER NOT NULL,
 	PRIMARY KEY(id)
 	
 );	
 
 CREATE TABLE commutes (
 	id INTEGER AUTO_INCREMENT NOT NULL,
-	origin VARCHAR(255) NOT NULL,
-	destination VARCHAR(255) NOT NULL,
+	origin INTEGER NOT NULL,
+	destination INTEGER NOT NULL,
 	arriveordepart VARCHAR(1) NOT NULL,
 	name VARCHAR(255) NOT NULL,
-	username VARCHAR(255) NOT NULL,
+	username INTEGER NOT NULL,
 	PRIMARY KEY(id)
 );
 
@@ -36,5 +36,3 @@ ALTER TABLE commutes  ADD FOREIGN KEY (origin) REFERENCES places(`id`);
 ALTER TABLE commutes  ADD FOREIGN KEY (destination) REFERENCES places(`id`);
 ALTER TABLE commutes  ADD FOREIGN KEY (username) REFERENCES users(`id`);
 ALTER TABLE places  ADD FOREIGN KEY (username) REFERENCES users(`id`);
-
-

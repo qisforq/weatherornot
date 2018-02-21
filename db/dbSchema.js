@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const mysql = require('mysql2'); // Is this required to be required?
 
-let dbOptions = { dialect: 'mysql', host: 'localhost', port: 8080 };
+let dbOptions = { dialect: 'postgress', host: 'localhost', port: 8080 };
 if (process.env.PORT) {
   dbOptions = 'Something else'; // need to find hosted (mlabs like solution for mysql)
 }
@@ -17,23 +17,77 @@ sequelize.authenticate().then((err) => {
 });
 
 exports.Commute = sequelize.define('commute', {
-  id: { type: Sequelize.UUID, primaryKey: true },
   name: Sequelize.STRING,
   time: Sequelize.INTEGER,
   a_or_d: Sequelize.STRING(1),
   // origin
+  origin: {
+    type: Sequelize.INTEGER,
+ 
+    references: {
+      // This is a reference to another model
+      model: 'place',
+ 
+      // This is the column name of the referenced model
+      key: 'id',
+ 
+      // This declares when to check the foreign key constraint. PostgreSQL only.
+      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+    },
+  },
   // dest
-});
+    destination: {
+      type: Sequelize.INTEGER,
+  
+      references: {
+        // This is a reference to another model
+        model: 'place',
+  
+        // This is the column name of the referenced model
+        key: 'id',
+  
+        // This declares when to check the foreign key constraint. PostgreSQL only.
+        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      },
+    },
+    user: {
+      type: Sequelize.INTEGER,
+  
+      references: {
+        // This is a reference to another model
+        model: 'user',
+  
+        // This is the column name of the referenced model
+        key: 'id',
+  
+        // This declares when to check the foreign key constraint. PostgreSQL only.
+        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      },
+    },
+})
 
 exports.Place = sequelize.define('place', {
   name: Sequelize.STRING(10),
   lat: Sequelize.STRING,
   lng: Sequelize.STRING,
   // icon
+  user: {
+    type: Sequelize.INTEGER,
+
+    references: {
+      // This is a reference to another model
+      model: 'user',
+
+      // This is the column name of the referenced model
+      key: 'id',
+
+      // This declares when to check the foreign key constraint. PostgreSQL only.
+      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+    },
+  },
 });
 
 exports.User = sequelize.define('user', {
-  id: { type: Sequelize.UUID, primaryKey: true },
   name: Sequelize.STRING,
   // password
 });
