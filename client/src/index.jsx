@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios'
+import Users from './components/Users.jsx'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      items: []
+    this.state = {
+      items: [],
+      username: null
     }
+    // this.handleName = this.handleName.bind(this)
+  }
+
+  handleName(name) {
+    this.state.username = name
+    // app.post('/user', function(req, res) {
+      console.log('user posted');
+    // })
   }
 
   componentDidMount() {
@@ -25,12 +35,10 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>WeatherOrNot</h1>
-      {/* <List items={this.state.items}/> */}
-      <h2>User...</h2>
-      <Users />
+      <h1>User...</h1>
+      <Users handleName={this.handleName} username={this.state.username}/>
     </div>)
   }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-

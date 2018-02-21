@@ -19,11 +19,10 @@ app.get('/search', function(req,res){
 
 	axios.get(URL).then((data) => {
 		console.log(data.data)
-      console.log('MapsAPI',data.data)
-      // res.send(data.data)
-      res.status(200).json(data.data);
-
-     })
+    console.log('MapsAPI',data.data)
+    // res.send(data.data)
+    res.status(200).json(data.data);
+  })
 })
 
 
@@ -53,6 +52,21 @@ app.get('/items', function (req, res) {
     }
   });
 });
+
+app.get('/user', function(req, res) {
+	/** -- user login --
+			look for user in database, match password
+			return confirmation to set login state **/
+})
+
+app.post('/user', function(req, res) {
+	/** -- new user registration --
+			check if username is taken
+			verify name and password length range
+			store to database
+			return confirmation **/
+})
+
 
 app.listen(8080, function() {
   console.log('listening on port 8080!');
