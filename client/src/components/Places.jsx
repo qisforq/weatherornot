@@ -1,6 +1,8 @@
 import React from 'react';
 import PlaceItem from './PlaceItem.jsx';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import config from '../../../server/config.js'
+// import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import LocationAutocomplete from 'location-autocomplete';
 
 class Places extends React.Component {
   constructor(props) {
@@ -9,23 +11,27 @@ class Places extends React.Component {
       address: '',
       placeType: 'home',
       showAddPlace: false,
+      lat: '',
+      lng: ''
     };
     this.onChange = this.onChange.bind(this);
     this.search = this.search.bind(this);
     this.toggleAddPlace = this.toggleAddPlace.bind(this);
-    this.onAutocompleteChange = this.onAutocompleteChange.bind(this)
+    // this.onAutocompleteChange = this.onAutocompleteChange.bind(this)
+    this.onDropdownSelect = this.onDropdownSelect.bind(this)
   }
 
   onChange(e) {
     // const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    // console.log("the name", e.target.name);
+    // console.log("the value", e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   }
 
   search(e) {
     e.preventDefault();
-    console.log('SEARCHED! Address:', address, 'placeType:', placeType);
-    let { address, placeType } = this.state;
-    this.props.sendAddress(address, placeType);
+    let { address, placeType, lat, lng } = this.state;
+    this.props.sendAddress(address, placeType, lat, lng);
   }
 
   toggleAddPlace() {
@@ -35,8 +41,17 @@ class Places extends React.Component {
     });
   }
 
-  onAutocompleteChange(address) {
-    this.setState({address})
+  // onAutocompleteChange(address) {
+  //   this.setState({address})
+  // }
+
+  onDropdownSelect(e) {
+    let lat = e.autocomplete.getPlace().geometry.location.lat();
+    let lng = e.autocomplete.getPlace().geometry.location.lng();
+    this.setState({
+      lat: lat,
+      lng: lng
+    });
   }
 
   render() {
@@ -58,7 +73,7 @@ class Places extends React.Component {
                 <option value="home">Home</option>
                 <option value="work">Work</option>
               </select>
-              <PlacesAutocomplete inputProps={inputProps} />
+              {/* <PlacesAutocomplete inputProps={inputProps} /> */}
               {/* <input
                 name="address"
                 type="text"
@@ -66,6 +81,14 @@ class Places extends React.Component {
                 placeholder="Enter address"
                 onChange={(e) => { this.onChange(e); }}
               /> */}
+              <LocationAutocomplete
+                name="address"
+                placeholder="Enter Address"
+                locationType="geocode"
+                googleAPIKey= "AIzaSyCoq4_-BeKtYRIs-3FjJL721G1eP5DaU0g"
+                onChange={(e) => {this.onChange(e)}}
+                onDropdownSelect={(e) => {this.onDropdownSelect(e)}}
+              />
               <button type="submit">Submit</button>
             </form>
           ) : (

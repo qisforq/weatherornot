@@ -29,21 +29,27 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/weather').then((data) => {
       console.log('darksky', data);
+    }).catch((error) => {
+      console.log(error, 'axios error');
     });
 
     axios.get('/search').then((data) => {
       console.log('MapsAPI', data);
+    }).catch((error) => {
+      console.log(error, 'axios error');
     });
   }
 
 
-  sendAddress(address, placeType) {
+  sendAddress(address, placeType, lat, lng) {
     // This should make a post request to google's api to get coordinates for the submitted address.
     console.log('address:', address, 'placeType:', placeType);
-
-    axios.post('/address-submit-form-or-something-like-that', {
+    console.log('lat:', lat, 'long:', lng);
+    axios.post('/places', {
       address,
       placeType,
+      lat,
+      lng
     })
       .then((response) => {
         console.log(response, 'axios response');
