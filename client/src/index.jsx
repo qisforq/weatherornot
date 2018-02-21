@@ -19,7 +19,7 @@ class App extends React.Component {
   }
 
   handleName(name) {
-    this.state.username = name
+    this.setState. = name
     // app.post('/user', function(req, res) {
       console.log('user posted');
     // })
