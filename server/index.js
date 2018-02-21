@@ -2,7 +2,8 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let api = require('./apiHelpers .js');
 let path = require('path')
-let db = require('../db/weather.sql')
+let db = require('../db/mysql.js')
+
 
 // var items = require('../database-mysql');
 let app = express();
