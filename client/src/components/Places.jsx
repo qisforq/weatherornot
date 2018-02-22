@@ -31,7 +31,7 @@ class Places extends React.Component {
   search(e) {
     e.preventDefault();
     let { address, placeType, lat, lng } = this.state;
-    this.props.sendAddress(address, placeType, lat, lng, this.props.username);
+    this.props.sendAddress(address, placeType, lat, lng);
   }
 
   toggleAddPlace() {
@@ -48,9 +48,12 @@ class Places extends React.Component {
   onDropdownSelect(e) {
     let lat = e.autocomplete.getPlace().geometry.location.lat();
     let lng = e.autocomplete.getPlace().geometry.location.lng();
+    let adr = e.autocomplete.getPlace().formatted_address;
+
     this.setState({
       lat: lat,
-      lng: lng
+      lng: lng,
+      address: adr
     });
   }
 

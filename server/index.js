@@ -174,15 +174,16 @@ app.post('/places', (req, res) => {
   console.log('server recieved username: ', username);
 
   console.log('POST place');
-  db.query(`SELECT * FROM places WHERE name="${placeType}";`, (err, result) => {
+  db.query(`SELECT * FROM places WHERE name="${placeType}" AND username=(SELECT username FROM users WHERE id="${username}");`, (err, result) => {
     if (err) {
+      console.log(err)
       res.status(500).send();
       return;
     }
 
     if (result.length) {
       console.log('place exists with that name');
-      res.status(400).send('place already exists');
+      res.status(200).send('place already exists');
       return;
     }
 
@@ -190,7 +191,7 @@ app.post('/places', (req, res) => {
       console.log('geocoder works');
 
       if (err) {
-        res.status(400).send('Sorry, the address you submitted is not valid');
+        res.status(200).send('Sorry, the address you submitted is not valid');
         return;
       }
 

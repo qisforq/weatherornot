@@ -15,7 +15,8 @@ class App extends React.Component {
       username: null
     };
     this.handleName = this.handleName.bind(this)
-    this.sendAddress.bind(this)
+    this.sendAddress = this.sendAddress.bind(this)
+    this.getPlacesWeather = this.getPlacesWeather.bind(this)
     };
     // this.handleName = this.handleName.bind(this)
   componentDidMount() {
@@ -48,14 +49,15 @@ class App extends React.Component {
     })
   }
 
-  sendAddress(address, placeType, lat, lng, username) {
+  sendAddress(address, placeType, lat, lng) {
+    console.log('TESTING sendAddress', ...arguments)
     // This should make a post request to google's api to get coordinates for the submitted address.
     axios.post('/places', {
       address,
       placeType,
       lat,
       lng,
-      username
+      username: this.state.username
     })
       .then((response) => {
         console.log(response, 'axios response');
@@ -96,9 +98,8 @@ class App extends React.Component {
         <h1>WeatherOrNot</h1>
         <h1>User...</h1>
         <Users handleName={this.handleName} username={this.state.username} />
-        {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress} username={this.state.username} />}
+        {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress}/>}
         <button onClick={()=> this.getPlacesWeather() } >test getPlacesWeather</button>
-        <button onClick={()=> this.getWeather() } >test getWeather</button>
         <Commutes/>
       </div>
     );
