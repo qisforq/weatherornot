@@ -29,7 +29,7 @@ class Users extends React.Component {
               console.log(`ow! bye ${this.props.username}`);
               this.setState({toggleInput: true})
             }}>
-            {this.props.username}
+            {`${this.props.username}'s places`}
           </span>
           :
           <input
