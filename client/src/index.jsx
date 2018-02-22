@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Places from './components/Places.jsx';
-import Commutes from './components/Commutes.jsx';
+import Users from './components/Users.jsx'
+// import Places from './components/Places.jsx';
+// import Commutes from './components/Commutes.jsx';
 
 
 class App extends React.Component {
@@ -10,19 +11,23 @@ class App extends React.Component {
     super(props);
     this.state = {
       places: ['home', 'work'],
+      username: 'name'
     };
-    this.sendAddress.bind(this)
-      items: [],
-      username: null
-    }
-    // this.handleName = this.handleName.bind(this)
+    this.handleName = this.handleName.bind(this)
   }
 
   handleName(name) {
-    this.state.username = name
-    // app.post('/user', function(req, res) {
-      console.log('user posted');
-    // })
+    this.setState({username: name})
+    console.log(`ping? you got a ${name} in there?`);
+    axios.post('/users',{
+        username: name
+      })
+      .then(res => {
+        console.log('ping!? here\'s the .then... (success?)');
+      })
+      .catch((err) => {
+        console.log(`error on post to /users: ${err}`);
+      })
   }
 
 
@@ -61,14 +66,14 @@ class App extends React.Component {
   }
 
   render() {
-    return (<div>
-      <h1>WeatherOrNot</h1>
-      <h1>User...</h1>
-      <Users handleName={this.handleName} username={this.state.username}/>
-    </div>)
-      <Places places={this.state.places} sendAddress={this.sendAddress} />
-      {/* <List items={this.state.items}/> */}
-    </div>);
+    return (
+      <div>
+        <h1>WeatherOrNot</h1>
+        <h1>User...</h1>
+        <Users handleName={this.handleName.bind(this)} username={this.state.username} />
+        {/* <Places places={this.state.places} sendAddress={this.sendAddress} /> */}
+      </div>
+    );
   }
 }
 
