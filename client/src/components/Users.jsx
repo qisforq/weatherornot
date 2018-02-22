@@ -4,8 +4,19 @@ class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggleInput: true
+      toggleInput: true,
+      errors: []
     }
+  }
+
+  usernameCheck(name) {
+    let newErrors = []
+    this.setState({errors: []})
+    // follow this pattern to add more checks
+    if (name.length < 3) {
+      newErrors.push('Please use more than 3 characters')
+    }
+    this.setState({errors: newErrors})
   }
 
   render() {
@@ -27,7 +38,7 @@ class Users extends React.Component {
             placeholder={this.state.userInput || "name"}
             value={this.state.input}
             onKeyUp={event => {
-              if (event.keyCode === 13) {
+              if (event.keyCode === 13 && !this.state.errors.length) {
                 this.props.handleName(event.target.value)
                 this.setState({
                   toggleInput: false
@@ -35,7 +46,14 @@ class Users extends React.Component {
                 console.log(`here comes ${event.target.value}`)
               }
             }}
+            onChange={event => {
+              this.usernameCheck(event.target.value)
+            }}
           />
+        }
+        {this.state.toggleInput ?
+          <div>{this.state.errors.map(error => <li>{error}</li>)}</div>
+          : <div></div>
         }
       </div>
     )
