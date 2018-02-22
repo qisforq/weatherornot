@@ -29,8 +29,12 @@ exports.getTravelTime = (commute) => {
   const destinationStr = `${destination.latitude},${destination.longitude}`;
   const deptOrArive = aOrD === 'A' ? 'arrival_time' : 'departure_time';
 
+  // get the UTC string for the arrival or departure time for today's date
+  let today = new Date().toString().split(' ');
+  today[4] = time;
+  today = Date.parse(today);
 
-  const URL = `${rootURL}origin=${originStr}&destination=${destinationStr}&${deptOrArive}=${time}&key=${config.googleMapsAPI}&mode="walking"`;
+  const URL = `${rootURL}origin=${originStr}&destination=${destinationStr}&${deptOrArive}=${today}&key=${config.googleMapsAPI}&mode="walking"`;
 
   return axios.get(URL)
     .then((data) => {
