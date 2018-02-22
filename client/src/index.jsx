@@ -18,14 +18,6 @@ class App extends React.Component {
     this.sendAddress.bind(this)
     };
     // this.handleName = this.handleName.bind(this)
-
-  handleName(name){
-    this.state.username = name
-    // app.post('/user', function(req, res) {
-      console.log('user posted');
-    // })
-  }
-
   componentDidMount() {
     axios.get('/weather').then((data) => {
       console.log('darksky', data);
@@ -107,7 +99,7 @@ class App extends React.Component {
         {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress} username={this.state.username} />}
         <button onClick={()=> this.getPlacesWeather() } >test getPlacesWeather</button>
         <button onClick={()=> this.getWeather() } >test getWeather</button>
-
+        <Commutes/>
       </div>
     );
   }
