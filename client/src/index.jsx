@@ -71,9 +71,12 @@ class App extends React.Component {
       }
     })
       .then((response) => {
-        this.setState({
-          places: response
-        })
+        console.log('get places: ', response.data);
+        if (response.data.length){
+          this.setState({
+            places: response.data
+          })
+        }
         console.log('state.places: ', this.state.places);
       })
       .catch((error) => {

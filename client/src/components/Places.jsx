@@ -63,9 +63,9 @@ class Places extends React.Component {
 
     return (
       <div>
-        {/* <div className="placesBlock">
-          {this.props.places.map((place, i) => <div key={i}>~~pretend this is the "{place}" icon~~</div>)}
-        </div> */}
+        <div className="placesBlock">
+          {this.props.places.map((place, i) => <div key={place.id}>~~pretend this is the "{place.name}" icon~~</div>)}
+        </div>
         <div className="addPlace">
           {this.state.showAddPlace ? (
             <form onSubmit={this.search}>
