@@ -31,7 +31,7 @@ class Places extends React.Component {
   search(e) {
     e.preventDefault();
     let { address, placeType, lat, lng } = this.state;
-    this.props.sendAddress(address, placeType, lat, lng);
+    this.props.sendAddress(address, placeType, lat, lng, this.props.username);
   }
 
   toggleAddPlace() {

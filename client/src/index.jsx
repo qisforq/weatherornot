@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Users from './components/Users.jsx'
-// import Places from './components/Places.jsx';
-// import Commutes from './components/Commutes.jsx';
+import Places from './components/Places.jsx';
+import Commutes from './components/Commutes.jsx';
 
 
 class App extends React.Component {
@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       places: ['home', 'work'],
-      username: 'name'
+      username: null
     };
     this.handleName = this.handleName.bind(this)
   }
@@ -46,15 +46,14 @@ class App extends React.Component {
   }
 
 
-  sendAddress(address, placeType, lat, lng) {
+  sendAddress(address, placeType, lat, lng, username) {
     // This should make a post request to google's api to get coordinates for the submitted address.
-    console.log('address:', address, 'placeType:', placeType);
-    console.log('lat:', lat, 'long:', lng);
     axios.post('/places', {
       address,
       placeType,
       lat,
-      lng
+      lng,
+      username
     })
       .then((response) => {
         console.log(response, 'axios response');
@@ -71,7 +70,7 @@ class App extends React.Component {
         <h1>WeatherOrNot</h1>
         <h1>User...</h1>
         <Users handleName={this.handleName.bind(this)} username={this.state.username} />
-        {/* <Places places={this.state.places} sendAddress={this.sendAddress} /> */}
+        {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress} username={this.state.username} />}
       </div>
     );
   }
