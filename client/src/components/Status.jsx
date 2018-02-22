@@ -42,34 +42,34 @@ class Status extends React.Component {
 
       () => {
         if (this.state.status === 'clear' || this.state.status === 'rain') {
-          if (acc !== 'snow') {
-            this.setState({
-              status:
+          this.setState({
+            status:
             this.props.commutes.reduce((acc, commute) => {
-            // for the destination of each commute
-              const destination = this.props.places.find(place => place.id === commute.destination.id);
+              if (acc !== 'snow') {
+                // for the destination of each commute
+                const destination = this.props.places.find(place => place.id === commute.destination.id);
 
-              const arrivalHour = destination.weather.hourly.data.find(hour =>
-              // find hour that describes arrival time
-              // 3600 seconds in hour
-                (hour.time > commute.arrival - 1800 && hour.time > commute.arrival + 1800) );
+                const arrivalHour = destination.weather.hourly.data.find(hour =>
+                  // find hour that describes arrival time
+                  // 3600 seconds in hour
+                  (hour.time > commute.arrival - 1800 && hour.time > commute.arrival + 1800));
 
-              // check the coresponding place's weather
-              if (acc === 'clear') {
-                if (arrivalHour.icon === 'rain' || arrivalHour.icon === 'snow') {
-                  return arrivalHour.icon;
-                }
-                return acc;
-              } else if (acc === 'rain') {
-                if (arrivalHour.icon === 'snow') {
-                  return arrivalHour.icon;
+                // check the coresponding place's weather
+                if (acc === 'clear') {
+                  if (arrivalHour.icon === 'rain' || arrivalHour.icon === 'snow') {
+                    return arrivalHour.icon;
+                  }
+                  return acc;
+                } else if (acc === 'rain') {
+                  if (arrivalHour.icon === 'snow') {
+                    return arrivalHour.icon;
+                  }
+                  return acc;
                 }
                 return acc;
               }
-              return acc;
             }, 'clear'),
-            });
-          }
+          });
         }
       },
     );
