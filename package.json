@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/hr-jonson/weatherornot#readme",
   "dependencies": {
+    "async": "^2.6.0",
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",

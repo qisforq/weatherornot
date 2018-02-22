@@ -1,6 +1,6 @@
-let axios = require('axios');
-let geocoder = require('google-geocoder');
-let config = require('./config.js')
+const axios = require('axios');
+const geocoder = require('google-geocoder');
+const config = require('./config.js');
 
 // GET REQUEST TO GOOGLEMAPS API FOR LAT/LONG/ ORIGIN/DESTINATION AND DISTANCE/TIME
 
@@ -19,7 +19,9 @@ commute = {
 }
 */
 
-exports.getPlaceLocation = ({ origin, destination, time, aOrD }) => {
+exports.getPlaceLocation = ({
+  origin, destination, time, aOrD,
+}) => {
   const rootURL = 'https://maps.googleapis.com/maps/api/directions/json?';
   const originStr = `${origin.lng},${origin.lat}`;
   const destinationStr = `${destination.lng},${destination.lat}`;
@@ -37,7 +39,11 @@ exports.getWeather = (place) => {
   const rootUrl = 'https://api.darksky.net/forecast';
   const APIKey = config.darkSkyAPI;
 
-  return axios.get(`${rootUrl}/${APIKey}/${place.lat},${place.lng}`);
+  return axios.get(`${rootUrl}/${APIKey}/${place.latitude},${place.longitude}`)
+    .then((data, err) => {
+      return Object.assign(place, { weather: { current: data.data.currently, hourly: data.data.hourly } })
+    })
+    .catch((err)=> console.log('ALLLEGRA IS HELPING', err, place))
 };
 
 exports.geo = geocoder({
