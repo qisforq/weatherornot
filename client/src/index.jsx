@@ -4,7 +4,6 @@ import axios from 'axios';
 import Users from './components/Users.jsx'
 import Places from './components/Places.jsx';
 import Commutes from './components/Commutes.jsx';
-import Users from './components/Users.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,10 +17,9 @@ class App extends React.Component {
     this.handleName = this.handleName.bind(this)
     this.sendAddress.bind(this)
     };
-  }
     // this.handleName = this.handleName.bind(this)
 
-  handleName(name) {
+  handleName(name){
     this.state.username = name
     // app.post('/user', function(req, res) {
       console.log('user posted');

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const api = require('./apiHelpers.js');
@@ -9,15 +9,8 @@ const geocoder = require('google-geocoder')({
   key: config.geocodeAPI,
 });
 
-=======
-let express = require('express');
-let bodyParser = require('body-parser');
-let api = require('./apiHelpers .js');
-let path = require('path')
-let db = require('../db/mysql.js').db
-let config = require('./config.js')
 let axios = require('axios')
->>>>>>> test
+
 
 // var items = require('../database-mysql');
 const app = express();
@@ -25,7 +18,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
-<<<<<<< HEAD
 /*
   _   _
  | | | |___  ___ _ __ ___

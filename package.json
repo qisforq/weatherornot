@@ -34,10 +34,7 @@
     "pg": "^7.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-<<<<<<< HEAD
     "react-load-script": "0.0.6",
-=======
->>>>>>> test
     "react-places-autocomplete": "^6.1.2",
     "sequelize": "^4.33.4"
   },
