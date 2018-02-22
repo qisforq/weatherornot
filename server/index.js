@@ -44,7 +44,7 @@ app.post('/users', (req, res) => {
         res.send('Added new user');
       });
     } else {
-      res.status(500).send('USER EXISTS');
+      res.status(200).send('USER ALREADY EXISTS');
     }
   });
 });
