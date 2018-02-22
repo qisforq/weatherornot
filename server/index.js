@@ -35,7 +35,7 @@ app.get('/weather', (req,res)=>{
   const lng = -73.976401
 
   axios.get(`${rootUrl}/${APIKey}/${lat},${lng}`)
-       .then(function(data){ 
+       .then(function(data){
        	db.query(`INSERT INTO places (name, latitude, longitude, username) VALUES ("Eric", "${lat}", "${lng}", "JAJAJA")`, (err, ress)=>{
        		if(err){
        			console.log(err)
@@ -171,7 +171,7 @@ app.post('/places', (req, res) => {
     username,
   } = req.body;
 
-  console.log('server recieved username: ', username);
+  // console.log('server recieved username: ', username);
 
   console.log('POST place');
   db.query(`SELECT * FROM places WHERE name="${placeType}" AND username=(SELECT username FROM users WHERE id="${username}");`, (err, result) => {
@@ -182,7 +182,7 @@ app.post('/places', (req, res) => {
     }
 
     if (result.length) {
-      console.log('place exists with that name');
+      console.log('place exists with that name for the user', username);
       res.status(200).send('place already exists');
       return;
     }
