@@ -13,8 +13,8 @@ class Users extends React.Component {
     let newErrors = []
     this.setState({errors: []})
     // follow this pattern to add more checks
-    if (name.length < 4) {
-      newErrors.push('Please use more than 4 characters')
+    if (name.length < 3) {
+      newErrors.push('Please use more than 3 characters')
     }
     if (name.match(/\W/)) {
       newErrors.push('Please only use numbers, letters and underscores')

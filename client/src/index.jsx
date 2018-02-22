@@ -104,6 +104,7 @@ class App extends React.Component {
     .then((newCommutes) => {
       this.setState({ commutes: newCommutes })
     })
+  }
 
   deletePlace(place) {
     axios.delete('/places', {
@@ -134,7 +135,6 @@ class App extends React.Component {
             deletePlace={this.deletePlace}
           />
         }
-        <button onClick={()=> this.getPlacesWeather()} >test getPlacesWeather</button>
         <Commutes/>
       </div>
     );
