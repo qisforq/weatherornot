@@ -4,12 +4,14 @@ import axios from 'axios';
 import Users from './components/Users.jsx'
 import Places from './components/Places.jsx';
 import Commutes from './components/Commutes.jsx';
+import Status from './components/Status.jsx'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // places: ['home', 'work'],
+      commutes: [],
       places: [],
       commutes: [],
       username: null
@@ -90,6 +92,18 @@ class App extends React.Component {
 
     // recieve an array of places with their weather datas
     // set it to state
+  }
+
+  getCommutes() {
+    axios.get('/commutes', {
+      params: {username: username}
+    })
+    .catch((err)=> {
+      console.log
+    })
+    .then((newCommutes) => {
+      this.setState({ commutes: newCommutes })
+    })
   }
 
   render() {
