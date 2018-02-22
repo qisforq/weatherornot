@@ -255,18 +255,6 @@ app.delete('/places', (req, res) => {
   });
 });
 
-
-// Timeline
-app.get('/timeline', (req, res) => { // may want to do this calculation in the client since all that data will live there
-
-});
-
-
-// Status
-app.get('/status', (req, res) => { // may want to do this calculation in the client since all that data will live there
-
-});
-
 app.listen(8080, () => {
   console.log('listening on port 8080!');
 });
