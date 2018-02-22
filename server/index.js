@@ -49,7 +49,6 @@ app.get('/users', (req, res) => {
 
 // Commutes
 app.post('/commutes', (req, res) => {
-
   const {
     org, dest,
     aOrD, name,
@@ -80,7 +79,9 @@ app.delete('/commutes', (req, res) => {
 // Places
 app.post('/places', (req, res) => {
   // req.body = {address, placeType, lat, lng}
-  const {
+  console.log(req.body);
+
+  let {
     address,
     placeType,
     lat,
@@ -88,44 +89,73 @@ app.post('/places', (req, res) => {
     username,
   } = req.body;
 
-  if (db.query(`SELECT * FROM places WHERE name=${placeType};`).length) {
-    console.log('place exists with that name');
-    res.status(500).send('err');
-    return;
-  }
+  console.log('POST place');
+  db.query(`SELECT * FROM places WHERE name="${placeType}";`, (err, result) => {
+    if (err) {
+      res.status(500).send();
+      return;
+    }
 
-  if (!lat && !lng && address) {
+    if (result.length) {
+      console.log('place exists with that name');
+      res.status(400).send('place already exists');
+      return;
+    }
+
     geocoder.find(address, (err, geoData) => {
       console.log('geocoder works');
-      if (geoData !== undefined) {
-        lat = geoData[0].location.lat;
-        lng = geoData[0].location.lng;
-      }
-    });
-  }
 
-  if (lat && lng) {
-    const unQuery = `SELECT id FROM users WHERE username="${username}"`;
-    const query = `INSERT INTO places (name, latitude, longitude, username) VALUES ("${placeType}", "${lat}", "${lng}", (${unQuery}));`;
-    db.query(query, (err) => {
       if (err) {
-        console.log(err);
-        res.status(500).send('error');
+        res.status(400).send('Sorry, the address you submitted is not valid');
         return;
       }
-      res.send();
+
+      if (geoData !== undefined) {
+        if (!lng & !lat) {
+          lat = geoData[0].location.lat;
+          lng = geoData[0].location.lng;
+        }
+      }
+
+      const unQuery = `SELECT id FROM users WHERE username="${username}"`;
+      const query = `INSERT INTO places (name, latitude, longitude, username) VALUES ("${placeType}", "${lat}", "${lng}", (${unQuery}));`;
+      db.query(query, (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send('error');
+          return;
+        }
+        res.send('added place to db');
+        return
+      });
     });
-  } else {
-    res.status(400).send('Sorry, the address you submitted is not valid');
-  }
+  });
 });
 
-app.get('/places', (req, res) => {
 
+app.get('/places', (req, res) => {
+  const { username } = req.query;
+
+  db.query(`SELECT * FROM places WHERE username=(SELECT id FROM users WHERE username="${username}");`, (err, results) => {
+    if (err) {
+      res.status(500).send();
+      return;
+    }
+
+    Promise.all(results.map((place)=> {
+      return api.getWeather(place).then(placeWithWeath => placeWithWeath);
+    }))
+    .then((data)=> {
+      res.send(data)
+    })
+    .catch((err)=> {
+      console.log(err)
+      res.status(500).send()
+    })
+  });
 });
 
 app.delete('/places', (req, res) => {
-
 });
 
 
