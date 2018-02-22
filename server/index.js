@@ -84,12 +84,29 @@ app.post('/commutes', (req, res) => {
 app.get('/commutes', (req, res) => {
   const username = req.query.username;
 
+  // get data from commutes table
   db.query(`SELECT * FROM commutes WHERE username=(SELECT id FROM users WHERE username="${username}")`, (err, commutes) => {
     // get lng and lat for each place
-    // add those object to each commutes object
-    // run those objects through the api.getTravelTime helper function
-    // add travel time to commute object
-    // send back in response
+    Promise.all(commutes.map(commute => new Promise((resolve) => {
+      db.query(`SELECT * FROM places WHERE id=${commute.origin}`, (err, ori) => {
+        db.query(`SELECT * FROM places WHERE id=${commute.destination}`, (err, dest) => {
+          // add those values to each commutes object
+          resolve(Object.assign(commute, { origin: ori[0], destination: dest[0] }));
+        });
+      });
+    })))
+      .then((commutesWithCords) => {
+        // run those objects through the api.getTravelTime helper function
+        return Promise.all(commutesWithCords.map((commute => api.getTravelTime(commute).then(commuteWithTravelTime => commuteWithTravelTime))));
+        // add travel time to commute object
+      })
+      .catch((errorMsg) => {
+        res.status(500).send('somethign went wrong', errorMsg);
+      })
+      .then((data) => {
+        // send back in response
+        res.send(data);
+      });
   });
 });
 
@@ -161,7 +178,6 @@ app.post('/places', (req, res) => {
           return;
         }
         res.send('added place to db');
-        
       });
     });
   });
@@ -177,7 +193,7 @@ app.get('/places', (req, res) => {
       return;
     }
 
-    Promise.all(results.map((place) => api.getWeather(place).then(placeWithWeath => placeWithWeath)))
+    Promise.all(results.map(place => api.getWeather(place).then(placeWithWeath => placeWithWeath)))
       .then((data) => {
         res.send(data);
       })
