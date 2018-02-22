@@ -23,12 +23,7 @@ class Commutes extends React.Component {
     return (
       <div>
         <div>
-          {this.props.commutes.map(commute =>
-          (<CommuteItem
-            key={commute.id}
-            commute={commute}
-            deleteCommute={this.props.deleteCommute}
-          />))}
+         
         </div>
         <div>
           <input
@@ -51,9 +46,7 @@ class Commutes extends React.Component {
             value={this.state.origin}
             onChange={(e) => { this.onChange(e); }}
           />
-          {this.props.places.map(place => (
-            <option value={place.name}>{place.name}</option>
-          ))}
+
 
           <input
             name="dest"
@@ -61,9 +54,7 @@ class Commutes extends React.Component {
             value={this.state.dest}
             onChange={(e) => { this.onChange(e); }}
           />
-          {this.props.places.map(place => (
-            <option value={place.name}>{place.name}</option>
-            ))}
+
         </div>
       </div>
     );

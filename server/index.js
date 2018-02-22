@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const api = require('./apiHelpers.js');
@@ -7,6 +8,8 @@ const config = require('./config.js');
 const geocoder = require('google-geocoder')({
   key: config.geocodeAPI,
 });
+
+let axios = require('axios')
 
 
 // var items = require('../database-mysql');
@@ -21,6 +24,35 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
  | | | / __|/ _ \ '__/ __|
  | |_| \__ \  __/ |  \__ \
   \___/|___/\___|_|  |___/
+=======
+
+//currentWeather
+
+app.get('/weather', (req,res)=>{
+  const rootUrl = 'https://api.darksky.net/forecast';
+  const APIKey = config.darkSkyAPI;
+  const lat = 40.750487
+  const lng = -73.976401
+
+  axios.get(`${rootUrl}/${APIKey}/${lat},${lng}`)
+       .then(function(data){ 
+       	db.query(`INSERT INTO places (name, latitude, longitude, username) VALUES ("Eric", "${lat}", "${lng}", "JAJAJA")`, (err, ress)=>{
+       		if(err){
+       			console.log(err)
+       		}
+       		console.log('RESS', res)
+       		res.send()
+       	})
+         res.status(200).json(data.data);
+       })
+       .catch(function(error) {
+         console.log(error);
+       })
+})
+
+//Users
+app.post('/users', (req, res) => {
+>>>>>>> test
 
 */
 app.post('/users', (req, res) => {
@@ -142,15 +174,16 @@ app.post('/places', (req, res) => {
   console.log('server recieved username: ', username);
 
   console.log('POST place');
-  db.query(`SELECT * FROM places WHERE name="${placeType}";`, (err, result) => {
+  db.query(`SELECT * FROM places WHERE name="${placeType}" AND username=(SELECT username FROM users WHERE id="${username}");`, (err, result) => {
     if (err) {
+      console.log(err)
       res.status(500).send();
       return;
     }
 
     if (result.length) {
       console.log('place exists with that name');
-      res.status(400).send('place already exists');
+      res.status(200).send('place already exists');
       return;
     }
 
@@ -158,7 +191,7 @@ app.post('/places', (req, res) => {
       console.log('geocoder works');
 
       if (err) {
-        res.status(400).send('Sorry, the address you submitted is not valid');
+        res.status(200).send('Sorry, the address you submitted is not valid');
         return;
       }
 
@@ -221,18 +254,6 @@ app.delete('/places', (req, res) => {
       res.status(200).send();
     });
   });
-});
-
-
-// Timeline
-app.get('/timeline', (req, res) => { // may want to do this calculation in the client since all that data will live there
-
-});
-
-
-// Status
-app.get('/status', (req, res) => { // may want to do this calculation in the client since all that data will live there
-
 });
 
 app.listen(8080, () => {
