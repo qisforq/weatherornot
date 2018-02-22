@@ -39,6 +39,8 @@ class App extends React.Component {
     })
     .then(res => {
       console.log('ping!? here\'s the .then... (success?)');
+      this.getPlacesWeather()
+      console.log(`this.state.places AFTER getPlacesWeather runs:`,this.state.places);
     })
     .catch((err) => {
       console.log(`error on post to /users: ${err}`);
@@ -63,7 +65,7 @@ class App extends React.Component {
       });
   }
 
-  getWeather(){
+  getPlacesWeather(){
     axios.get('/places', {
       // username: this.state.username
       params: {
@@ -80,7 +82,7 @@ class App extends React.Component {
         console.log('state.places: ', this.state.places);
       })
       .catch((error) => {
-        console.log('error in client getWeather: ', error);
+        console.log('error in client getPlacesWeather: ', error);
       })
 
     // recieve an array of places with their weather datas
@@ -94,7 +96,7 @@ class App extends React.Component {
         <h1>User...</h1>
         <Users handleName={this.handleName.bind(this)} username={this.state.username} />
         {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress} username={this.state.username} />}
-        <button onClick={()=> this.getWeather() } >test getWeather</button>
+        <button onClick={()=> this.getPlacesWeather() } >test getPlacesWeather</button>
       </div>
     );
   }
