@@ -19,7 +19,7 @@ commute = {
 }
 */
 
-exports.getPlaceLocation = ({
+exports.getTravelTime = ({
   origin, destination, time, aOrD,
 }) => {
   const rootURL = 'https://maps.googleapis.com/maps/api/directions/json?';
