@@ -139,9 +139,9 @@ app.post('/places', (req, res) => {
     username,
   } = req.body;
 
-  console.log('server recieved username: ', username);
+  // console.log('server recieved username: ', username);
 
-  console.log('POST place');
+  // console.log('POST place');
   db.query(`SELECT * FROM places WHERE name="${placeType}";`, (err, result) => {
     if (err) {
       res.status(500).send();
@@ -149,8 +149,8 @@ app.post('/places', (req, res) => {
     }
 
     if (result.length) {
-      console.log('place exists with that name');
-      res.status(400).send('place already exists');
+      console.log('place exists with that name for the user', username);
+      res.status(200).send('place already exists');
       return;
     }
 

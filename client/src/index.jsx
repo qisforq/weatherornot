@@ -16,6 +16,8 @@ class App extends React.Component {
       username: null
     };
     this.handleName = this.handleName.bind(this)
+    this.sendAddress = this.sendAddress.bind(this)
+    this.getPlacesWeather = this.getPlacesWeather.bind(this)
   }
 
   componentDidMount() {
@@ -58,8 +60,9 @@ class App extends React.Component {
       username
     })
       .then((response) => {
-        console.log(response, 'axios response');
-      // this.setState({})
+        console.log(response, 'axios response!');
+        console.log(this, '???');
+        this.getPlacesWeather()
       })
       .catch((error) => {
         console.log(error, 'axios error');
@@ -74,7 +77,6 @@ class App extends React.Component {
       }
     })
       .then((response) => {
-        console.log('get places: ', response.data);
         if (response.data.length){
           this.setState({
             places: response.data
