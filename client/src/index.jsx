@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       // places: ['home', 'work'],
       places: [],
+      commutes: [],
       username: null
     };
     this.handleName = this.handleName.bind(this)
@@ -32,16 +33,18 @@ class App extends React.Component {
   }
 
   handleName(name) {
-    this.setState({username: name})
-    console.log(`ping? you got a ${name} in there?`);
-    axios.post('/users',{
-      username: name
-    })
-    .then(res => {
-      console.log('ping!? here\'s the .then... (success?)');
-    })
-    .catch((err) => {
-      console.log(`error on post to /users: ${err}`);
+    this.setState({username: name}, () => {
+      console.log(`ping? you got a ${this.state.username} in there?`);
+      axios.post('/users', {
+        username: this.state.username
+      })
+      .then(res => {
+        console.log('ping!? here\'s the .then... (success?)');
+        this.getPlacesWeather()
+      })
+      .catch((err) => {
+        console.log(`error on post to /users: ${err}`);
+      })
     })
   }
 
@@ -63,7 +66,7 @@ class App extends React.Component {
       });
   }
 
-  getWeather(){
+  getPlacesWeather(){
     axios.get('/places', {
       // username: this.state.username
       params: {
@@ -80,7 +83,7 @@ class App extends React.Component {
         console.log('state.places: ', this.state.places);
       })
       .catch((error) => {
-        console.log('error in client getWeather: ', error);
+        console.log('error in client getPlacesWeather: ', error);
       })
 
     // recieve an array of places with their weather datas
@@ -92,9 +95,9 @@ class App extends React.Component {
       <div>
         <h1>WeatherOrNot</h1>
         <h1>User...</h1>
-        <Users handleName={this.handleName.bind(this)} username={this.state.username} />
+        <Users handleName={this.handleName} username={this.state.username} />
         {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress} username={this.state.username} />}
-        <button onClick={()=> this.getWeather() } >test getWeather</button>
+        <button onClick={()=> this.getPlacesWeather() } >test getPlacesWeather</button>
       </div>
     );
   }

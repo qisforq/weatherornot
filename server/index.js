@@ -44,7 +44,7 @@ app.post('/users', (req, res) => {
         res.send('Added new user');
       });
     } else {
-      res.status(500).send('USER EXISTS');
+      res.status(200).send('USER ALREADY EXISTS');
     }
   });
 });
@@ -130,7 +130,6 @@ app.delete('/commutes', (req, res) => {
 
 */
 app.post('/places', (req, res) => {
-  console.log(req.body);
 
   let {
     address,
@@ -186,7 +185,6 @@ app.post('/places', (req, res) => {
 
 
 app.get('/places', (req, res) => {
-  console.log('places req: ', req);
   const { username } = req.query;
 
   db.query(`SELECT * FROM places WHERE username=(SELECT id FROM users WHERE username="${username}");`, (err, results) => {
