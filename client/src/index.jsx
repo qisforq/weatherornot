@@ -19,6 +19,7 @@ class App extends React.Component {
     this.handleName = this.handleName.bind(this)
     this.sendAddress = this.sendAddress.bind(this)
     this.getPlacesWeather = this.getPlacesWeather.bind(this)
+    this.deletePlace = this.deletePlace.bind(this)
   };
 
   componentDidMount() {
@@ -52,7 +53,6 @@ class App extends React.Component {
   }
 
   sendAddress(address, placeType, lat, lng) {
-    console.log('TESTING sendAddress', ...arguments)
     // This should make a post request to google's api to get coordinates for the submitted address.
     axios.post('/places', {
       address,
@@ -106,13 +106,35 @@ class App extends React.Component {
     })
   }
 
+  deletePlace(place) {
+    axios.delete('/places', {
+      params: {
+        place: place
+      }
+    })
+      .then(() => {
+        this.getPlacesWeather()
+      })
+  }
+
   render() {
     return (
       <div>
         <h1>WeatherOrNot</h1>
         <h1>User...</h1>
-        <Users handleName={this.handleName} username={this.state.username} />
-        {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress}/>}
+        <Users
+          handleName={this.handleName}
+          username={this.state.username}
+        />
+        {
+          this.state.username && // render after username is selected
+          <Places
+            places={this.state.places}
+            sendAddress={this.sendAddress}
+            username={this.state.username}
+            deletePlace={this.deletePlace}
+          />
+        }
         <Commutes/>
       </div>
     );
