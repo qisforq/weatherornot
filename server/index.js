@@ -84,7 +84,7 @@ app.post('/commutes', (req, res) => {
 app.get('/commutes', (req, res) => {
   const username = req.query.username;
 
-  db.query(`SELECT * FROM commutes WHERE username=(SELECT id FROM users WHERE username="${username}")`, (err, data) => {
+  db.query(`SELECT * FROM commutes WHERE username=(SELECT id FROM users WHERE username="${username}")`, (err, commutes) => {
     // get lng and lat for each place
     // add those object to each commutes object
     // run those objects through the api.getTravelTime helper function
