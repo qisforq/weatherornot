@@ -113,7 +113,6 @@ class App extends React.Component {
         <h1>User...</h1>
         <Users handleName={this.handleName} username={this.state.username} />
         {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress}/>}
-        <button onClick={()=> this.getPlacesWeather() } >test getPlacesWeather</button>
         <Commutes/>
       </div>
     );

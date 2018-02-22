@@ -23,7 +23,7 @@ class Commutes extends React.Component {
     return (
       <div>
         <div>
-         
+
         </div>
         <div>
           <input
@@ -32,7 +32,6 @@ class Commutes extends React.Component {
             value={this.state.deptOrArival}
             deleteCommute={this.props.deleteCommute}
             onChange={(e) => { this.onChange(e); }}
-            deleteCommute={this.props.deleteCommute}
           />
           <input
             name="time"
