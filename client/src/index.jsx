@@ -19,7 +19,6 @@ class App extends React.Component {
     this.getPlacesWeather = this.getPlacesWeather.bind(this)
   };
 
-    // this.handleName = this.handleName.bind(this)
   componentDidMount() {
     axios.get('/weather').then((data) => {
       console.log('darksky', data);
