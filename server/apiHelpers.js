@@ -27,7 +27,7 @@ exports.getTravelTime = (commute) => {
   const rootURL = 'https://maps.googleapis.com/maps/api/directions/json?';
   const originStr = `${origin.latitude},${origin.longitude}`;
   const destinationStr = `${destination.latitude},${destination.longitude}`;
-  const deptOrArive = aOrD === 'A' ? 'arrival_time' : 'departure_time';
+  const deptOrArive = (aOrD === 'A') ? 'arrival_time' : 'departure_time';
 
   // get the UTC string for the arrival or departure time for today's date
   let today = new Date().toString().split(' ');
@@ -39,7 +39,12 @@ exports.getTravelTime = (commute) => {
   return axios.get(URL)
     .then((data) => {
       if (data.data.routes.length > 0) {
-        return Object.assign(commute, { travelTime: data.data.routes[0].legs[0].duration });
+        let duration = data.data.routes[0].legs[0].duration
+
+        let currentArival = (aOrD === 'A') ? today : today - duration.value;
+        let currentDeparture = (aOrD === 'D') ? today : today + duration.value;
+
+        return Object.assign(commute, { travelTime: duration, departure: currentDeparture, arrival: currentArival});
       }
       return Object.assign(commute, { travelTime: { text: 'N/A', value: null } });
     });
