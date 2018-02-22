@@ -4,7 +4,7 @@ import axios from 'axios';
 import Users from './components/Users.jsx'
 import Places from './components/Places.jsx';
 import Commutes from './components/Commutes.jsx';
-
+import Users from './components/Users.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +16,16 @@ class App extends React.Component {
       username: null
     };
     this.handleName = this.handleName.bind(this)
+    this.sendAddress.bind(this)
+    };
+  }
+    // this.handleName = this.handleName.bind(this)
+
+  handleName(name) {
+    this.state.username = name
+    // app.post('/user', function(req, res) {
+      console.log('user posted');
+    // })
   }
 
   componentDidMount() {
@@ -98,6 +108,8 @@ class App extends React.Component {
         <Users handleName={this.handleName} username={this.state.username} />
         {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress} username={this.state.username} />}
         <button onClick={()=> this.getPlacesWeather() } >test getPlacesWeather</button>
+        <button onClick={()=> this.getWeather() } >test getWeather</button>
+
       </div>
     );
   }

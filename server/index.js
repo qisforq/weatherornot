@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const bodyParser = require('body-parser');
 const api = require('./apiHelpers.js');
@@ -8,6 +9,15 @@ const geocoder = require('google-geocoder')({
   key: config.geocodeAPI,
 });
 
+=======
+let express = require('express');
+let bodyParser = require('body-parser');
+let api = require('./apiHelpers .js');
+let path = require('path')
+let db = require('../db/mysql.js').db
+let config = require('./config.js')
+let axios = require('axios')
+>>>>>>> test
 
 // var items = require('../database-mysql');
 const app = express();
@@ -15,12 +25,42 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
+<<<<<<< HEAD
 /*
   _   _
  | | | |___  ___ _ __ ___
  | | | / __|/ _ \ '__/ __|
  | |_| \__ \  __/ |  \__ \
   \___/|___/\___|_|  |___/
+=======
+
+//currentWeather
+
+app.get('/weather', (req,res)=>{
+  const rootUrl = 'https://api.darksky.net/forecast';
+  const APIKey = config.darkSkyAPI;
+  const lat = 40.750487
+  const lng = -73.976401
+
+  axios.get(`${rootUrl}/${APIKey}/${lat},${lng}`)
+       .then(function(data){ 
+       	db.query(`INSERT INTO places (name, latitude, longitude, username) VALUES ("Eric", "${lat}", "${lng}", "JAJAJA")`, (err, ress)=>{
+       		if(err){
+       			console.log(err)
+       		}
+       		console.log('RESS', res)
+       		res.send()
+       	})
+         res.status(200).json(data.data);
+       })
+       .catch(function(error) {
+         console.log(error);
+       })
+})
+
+//Users
+app.post('/users', (req, res) => {
+>>>>>>> test
 
 */
 app.post('/users', (req, res) => {
