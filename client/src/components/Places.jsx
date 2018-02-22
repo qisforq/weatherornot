@@ -32,13 +32,17 @@ class Places extends React.Component {
     e.preventDefault();
     let { address, placeType, lat, lng } = this.state;
     this.props.sendAddress(address, placeType, lat, lng);
+    this.toggleAddPlace();
   }
 
   toggleAddPlace() {
     // This function triggers the "Add a place" button to show the "enter address form"
-    this.setState({
-      showAddPlace: !this.state.showAddPlace,
-    });
+    console.log(this.props.places, "is this.props.places over a length of 2?");
+      this.setState({
+        showAddPlace: !this.state.showAddPlace,
+      });
+    // {this.state.showButton ? `Add a place!` : `Sorry, currently we only allow two saved places`}
+
   }
 
   // onAutocompleteChange(address) {
@@ -58,48 +62,46 @@ class Places extends React.Component {
   }
 
   render() {
-    const inputProps = {
-      value: this.state.address,
-      onChange: this.onAutocompleteChange
+    if (this.props.places.length < 2) {
+      return (
+        <div>
+          <div className="placesBlock">
+            {this.props.places.map((place, i) => <PlaceItem key={place.id} placeName={place.name}/>)}
+          </div>
+          <div className="addPlace">
+            {this.state.showAddPlace ? (
+              // if showAddPlace is true, then show the "enter address" form
+              <form onSubmit={this.search}>
+                <select name="placeType" value={this.state.placeType} onChange={(e) => { this.onChange(e); }}>
+                  <option value="home">Home</option>
+                  <option value="work">Work</option>
+                </select>
+                <LocationAutocomplete
+                  name="address"
+                  placeholder="Enter Address"
+                  locationType="geocode"
+                  googleAPIKey= "AIzaSyCoq4_-BeKtYRIs-3FjJL721G1eP5DaU0g"
+                  onChange={(e) => {this.onChange(e)}}
+                  onDropdownSelect={(e) => {this.onDropdownSelect(e)}}
+                />
+                <button type="submit">Submit</button>
+              </form>
+            ) : (
+              <button onClick={this.toggleAddPlace}>Add a place!</button>
+            )}
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="placesBlock">
+            {this.props.places.map((place, i) => <PlaceItem key={place.id} placeName={place.name}/>)}
+          </div>
+        </div>
+      );
     }
 
-
-    return (
-      <div>
-        <div className="placesBlock">
-          {this.props.places.map((place, i) => <PlaceItem key={place.id} placeName={place.name}/>)}
-        </div>
-        <div className="addPlace">
-          {this.state.showAddPlace ? (
-            <form onSubmit={this.search}>
-              <select name="placeType" value={this.state.placeType} onChange={(e) => { this.onChange(e); }}>
-                <option value="home">Home</option>
-                <option value="work">Work</option>
-              </select>
-              {/* <PlacesAutocomplete inputProps={inputProps} /> */}
-              {/* <input
-                name="address"
-                type="text"
-                value={this.state.address}
-                placeholder="Enter address"
-                onChange={(e) => { this.onChange(e); }}
-              /> */}
-              <LocationAutocomplete
-                name="address"
-                placeholder="Enter Address"
-                locationType="geocode"
-                googleAPIKey= "AIzaSyCoq4_-BeKtYRIs-3FjJL721G1eP5DaU0g"
-                onChange={(e) => {this.onChange(e)}}
-                onDropdownSelect={(e) => {this.onDropdownSelect(e)}}
-              />
-              <button type="submit">Submit</button>
-            </form>
-          ) : (
-            <button onClick={this.toggleAddPlace}>Add a place!</button>
-          )}
-        </div>
-      </div>
-    );
   }
 }
 
