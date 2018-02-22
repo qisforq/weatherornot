@@ -32,7 +32,7 @@ exports.getTravelTime = (commute) => {
   // get the UTC string for the arrival or departure time for today's date
   let today = new Date().toString().split(' ');
   today[4] = time;
-  today = Date.parse(today);
+  today = Date.parse(today.join(' '));
 
   const URL = `${rootURL}origin=${originStr}&destination=${destinationStr}&${deptOrArive}=${today}&key=${config.googleMapsAPI}&mode="walking"`;
 
