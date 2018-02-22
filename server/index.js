@@ -113,7 +113,6 @@ app.delete('/commutes', (req, res) => {
 
 */
 app.post('/places', (req, res) => {
-  // req.body = {address, placeType, lat, lng}
   console.log(req.body);
 
   let {
@@ -123,6 +122,8 @@ app.post('/places', (req, res) => {
     lng,
     username,
   } = req.body;
+
+  console.log('server recieved username: ', username);
 
   console.log('POST place');
   db.query(`SELECT * FROM places WHERE name="${placeType}";`, (err, result) => {
@@ -161,7 +162,7 @@ app.post('/places', (req, res) => {
           return;
         }
         res.send('added place to db');
-        
+
       });
     });
   });
@@ -169,6 +170,7 @@ app.post('/places', (req, res) => {
 
 
 app.get('/places', (req, res) => {
+  console.log('places req: ', req);
   const { username } = req.query;
 
   db.query(`SELECT * FROM places WHERE username=(SELECT id FROM users WHERE username="${username}");`, (err, results) => {
