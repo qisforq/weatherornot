@@ -7,7 +7,6 @@ const config = require('./config.js');
 const geocoder = require('google-geocoder')({
   key: config.geocodeAPI,
 });
-const mapAsync = require('async').map
 
 
 // var items = require('../database-mysql');
