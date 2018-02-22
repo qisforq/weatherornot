@@ -11,15 +11,23 @@ class App extends React.Component {
     super(props);
     this.state = {
       places: ['home', 'work'],
+      username: 'name'
     };
     this.handleName = this.handleName.bind(this)
   }
 
   handleName(name) {
     this.setState({username: name})
-    // app.post('/user', function(req, res) {
-      console.log('user posted');
-    // })
+    console.log(`ping? you got a ${name} in there?`);
+    axios.post('/users',{
+        username: name
+      })
+      .then(res => {
+        console.log('ping!? here\'s the .then... (success?)');
+      })
+      .catch((err) => {
+        console.log(`error on post to /users: ${err}`);
+      })
   }
 
 
@@ -62,7 +70,7 @@ class App extends React.Component {
       <div>
         <h1>WeatherOrNot</h1>
         <h1>User...</h1>
-        <Users handleName={this.handleName} username={this.state.username} />
+        <Users handleName={this.handleName.bind(this)} username={this.state.username} />
         {/* <Places places={this.state.places} sendAddress={this.sendAddress} /> */}
       </div>
     );
