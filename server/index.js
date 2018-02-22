@@ -16,12 +16,12 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 /*
-  _   _                   
- | | | |___  ___ _ __ ___ 
+  _   _
+ | | | |___  ___ _ __ ___
  | | | / __|/ _ \ '__/ __|
  | |_| \__ \  __/ |  \__ \
   \___/|___/\___|_|  |___/
-                          
+
 */
 app.post('/users', (req, res) => {
   // expecting body: {username: USERNAME}
@@ -55,12 +55,12 @@ app.get('/users', (req, res) => {
 
 
 /*
-   ____                                _            
-  / ___|___  _ __ ___  _ __ ___  _   _| |_ ___  ___ 
+   ____                                _
+  / ___|___  _ __ ___  _ __ ___  _   _| |_ ___  ___
  | |   / _ \| '_ ` _ \| '_ ` _ \| | | | __/ _ \/ __|
  | |__| (_) | | | | | | | | | | | |_| | ||  __/\__ \
   \____\___/|_| |_| |_|_| |_| |_|\__,_|\__\___||___/
-                                                    
+
 */
 app.post('/commutes', (req, res) => {
   const {
@@ -81,39 +81,36 @@ app.post('/commutes', (req, res) => {
   });
 });
 
-
-
 app.get('/commutes', (req, res) => {
-  const username = req.query.username
+  const username = req.query.username;
 
-  db.query(`SELECT * FROM commutes WHERE username=(SELECT id FROM users WHERE username="${username}")`, (err, data)=> {
-    //get lng and lat for each place
-    //add those object to each commutes object
-    //run those objects through the api.getTravelTime helper function
-      //add travel time to commute object
-        //send back in response
-  })
-});
-
-app.delete('/commutes', (req, res) => {
-  const placeId = req.query.commute.id
-  db.query(`DELETE FROM commutes WHERE id="${commuteId}"`, (err) => {
-    if (err) {
-      res.status(500).send()
-      return
-    }
-    res.status(200).send()
+  db.query(`SELECT * FROM commutes WHERE username=(SELECT id FROM users WHERE username="${username}")`, (err, data) => {
+    // get lng and lat for each place
+    // add those object to each commutes object
+    // run those objects through the api.getTravelTime helper function
+    // add travel time to commute object
+    // send back in response
   });
 });
 
+app.delete('/commutes', (req, res) => {
+  const placeId = req.query.commute.id;
+  db.query(`DELETE FROM commutes WHERE id="${commuteId}"`, (err) => {
+    if (err) {
+      res.status(500).send();
+      return;
+    }
+    res.status(200).send();
+  });
+});
 
 /*
-  ____  _                     
- |  _ \| | __ _  ___ ___  ___ 
+  ____  _
+ |  _ \| | __ _  ___ ___  ___
  | |_) | |/ _` |/ __/ _ \/ __|
  |  __/| | (_| | (_|  __/\__ \
  |_|   |_|\__,_|\___\___||___/
-                             
+
 */
 app.post('/places', (req, res) => {
   // req.body = {address, placeType, lat, lng}
@@ -164,7 +161,7 @@ app.post('/places', (req, res) => {
           return;
         }
         res.send('added place to db');
-        return
+        
       });
     });
   });
@@ -180,34 +177,32 @@ app.get('/places', (req, res) => {
       return;
     }
 
-    Promise.all(results.map((place)=> {
-      return api.getWeather(place).then(placeWithWeath => placeWithWeath);
-    }))
-    .then((data)=> {
-      res.send(data)
-    })
-    .catch((err)=> {
-      console.log(err)
-      res.status(500).send()
-    })
+    Promise.all(results.map((place) => api.getWeather(place).then(placeWithWeath => placeWithWeath)))
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send();
+      });
   });
 });
 
 app.delete('/places', (req, res) => {
-  const placeId = req.query.place.id
+  const placeId = req.query.place.id;
   // find all commutes that contain this place and delete them
   db.query(`DELETE FROM commutes WHERE origin="${placeId}" OR dest="${placeId}"`, (err) => {
     if (err) {
-      res.status(500).send()
-      return
+      res.status(500).send();
+      return;
     }
     // delete place
     db.query(`DELETE FROM places WHERE id="${placeId}"`, (err) => {
       if (err) {
-        res.status(500).send()
-        return
+        res.status(500).send();
+        return;
       }
-      res.status(200).send()
+      res.status(200).send();
     });
   });
 });
