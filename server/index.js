@@ -170,6 +170,7 @@ app.post('/places', (req, res) => {
 
 
 app.get('/places', (req, res) => {
+  console.log('places req: ', req);
   const { username } = req.query;
 
   db.query(`SELECT * FROM places WHERE username=(SELECT id FROM users WHERE username="${username}");`, (err, results) => {
