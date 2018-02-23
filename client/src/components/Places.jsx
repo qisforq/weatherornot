@@ -72,10 +72,22 @@ class Places extends React.Component {
             {this.state.showAddPlace ? (
               // if showAddPlace is true, then show the "enter address" form
               <form onSubmit={this.search}>
+              {
+                this.props.places.length === 0 ?
                 <select name="placeType" value={this.state.placeType} onChange={(e) => { this.onChange(e); }}>
-                  <option value="home">Home</option>
-                  <option value="work">Work</option>
+                      <option value="home">Home</option>
+                      <option value="work">Work</option>
                 </select>
+                : this.props.places.placeType === 'home' ?
+                <select name="placeType" value={this.state.placeType} onChange={(e) => { this.onChange(e); }}>
+                      <option value="work">Work</option>
+                </select>
+                :
+                <select name="placeType" value={this.state.placeType} onChange={(e) => { this.onChange(e); }}>
+                      <option value="home">Home</option>
+                </select>
+
+              }
                 <LocationAutocomplete
                   name="address"
                   placeholder="Enter Address"
