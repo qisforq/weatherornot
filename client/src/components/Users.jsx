@@ -60,7 +60,7 @@ class Users extends React.Component {
           />
         }
         {this.state.toggleInput ?
-          <div>{this.state.errors.map(error => <li>{error}</li>)}</div>
+          <div>{this.state.errors.map((error, i) => <li key={i}>{error}</li>)}</div>
           : <div></div>
         }
       </div>
