@@ -74,7 +74,7 @@ class Commutes extends React.Component {
             (<CommuteItem
             key={commute.id}
             commute={commute}
-            deleteCommute={this.props.deleteCommute}
+            deleteCommutes={this.props.deleteCommutes}
           />))}
         </div>
       </div>

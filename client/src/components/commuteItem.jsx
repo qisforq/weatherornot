@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CommuteItem = ({ commute, deleteCommute }) => {
+const CommuteItem = ({ commute, deleteCommutes }) => {
   console.log('haha',commute)
   if (commute.arriveordepart === 'A') {
     return (
@@ -12,7 +12,7 @@ const CommuteItem = ({ commute, deleteCommute }) => {
         <div>{`Duration ${commute.travelTime.text}`}</div>
         <div>
           <button
-            onClick={() => { deleteCommute(commute); }}
+            onClick={() => { deleteCommutes(commute); }}
           >Delete
           </button>
         </div>
@@ -29,7 +29,7 @@ const CommuteItem = ({ commute, deleteCommute }) => {
         <div>{`Duration ${commute.travelTime.text}`}</div>
         <div>
           <button
-            onClick={() => { deleteCommute(commute); }}
+            onClick={() => { deleteCommutes(commute); }}
           >Delete
           </button>
         </div>

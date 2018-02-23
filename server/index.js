@@ -109,9 +109,14 @@ app.get('/commutes', (req, res) => {
 });
 
 app.delete('/commutes', (req, res) => {
-  const placeId = req.query.commute.id;
+  // const placeId = req.query.commute.id;
+  console.log('manosthe grape god',req.query.commuteId.id)
+  // console.log(req.query)
+  // console.log(req)
+  const commuteId = JSON.parse(req.query.commuteId).id;
   db.query(`DELETE FROM commutes WHERE id="${commuteId}"`, (err) => {
     if (err) {
+        console.log('fuck')
       res.status(500).send();
       return;
     }

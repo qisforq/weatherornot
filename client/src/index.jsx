@@ -22,6 +22,7 @@ class App extends React.Component {
     this.deletePlace = this.deletePlace.bind(this)
     this.showMeTheWay = this.showMeTheWay.bind(this)
     this.getCommutes = this.getCommutes.bind(this)
+    this.deleteCommutes = this.deleteCommutes.bind(this)
   };
     // this.handleName = this.handleName.bind(this)
   componentDidMount() {
@@ -72,6 +73,20 @@ class App extends React.Component {
     .then((data)=> {
       console.log('GET commutes data: ', data.data)
       this.setState({commutes: data.data})
+    })
+  }
+
+  deleteCommutes(commuteId){
+    return axios.delete('/commutes',{
+      params: {
+        commuteId: commuteId
+      }
+    })
+    .then(() => {
+      this.getPlacesWeather()
+    })
+    .then(() => {
+      this.getCommutes()
     })
   }
 
@@ -153,7 +168,11 @@ class App extends React.Component {
         }
         {/* <Commutes/> */}
         {this.state.places.length > 1 &&
-          <Commutes commutes={this.state.commutes} addCommuteHandler={this.showMeTheWay}/>
+          <Commutes
+            commutes={this.state.commutes}
+            addCommuteHandler={this.showMeTheWay}
+            deleteCommutes={this.deleteCommutes}
+          />
         }
       </div>
     </MuiThemeProvider>
