@@ -19,11 +19,9 @@ class App extends React.Component {
     this.sendAddress = this.sendAddress.bind(this)
     this.getPlacesWeather = this.getPlacesWeather.bind(this)
     this.deletePlace = this.deletePlace.bind(this)
-  };
-
     this.showMeTheWay = this.showMeTheWay.bind(this)
     this.getCommutes = this.getCommutes.bind(this)
-    };
+  };
     // this.handleName = this.handleName.bind(this)
   componentDidMount() {
 
@@ -58,7 +56,7 @@ class App extends React.Component {
       })
       .then(() => {
         this.getCommutes()
-      })  
+      })
       .catch((error) => {
         console.log(error, 'axios error');
       });
@@ -118,18 +116,6 @@ class App extends React.Component {
     // set it to state
   }
 
-  getCommutes() {
-    axios.get('/commutes', {
-      params: {username: username}
-    })
-    .catch((err)=> {
-      console.log
-    })
-    .then((newCommutes) => {
-      this.setState({ commutes: newCommutes })
-    })
-  }
-
   deletePlace(place) {
     axios.delete('/places', {
       params: {
@@ -160,10 +146,9 @@ class App extends React.Component {
           />
         }
         {/* <Commutes/> */}
-        <Users handleName={this.handleName} username={this.state.username} />
-        {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress}/>}
-        <button onClick={()=> this.getPlacesWeather() }>test getPlacesWeather</button>
-        <Commutes commutes={this.state.commutes} addCommuteHandler={this.showMeTheWay}/>
+        {this.state.places.length > 1 &&
+          <Commutes commutes={this.state.commutes} addCommuteHandler={this.showMeTheWay}/>
+        }
       </div>
     );
   }
