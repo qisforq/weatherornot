@@ -23,11 +23,11 @@ const PlaceItem = ({place, deletePlace}) => {
       <div
         className="place"
         onClick={() => {
-          console.log("PLACE:",);
+          deletePlace(place)
         }}
         >
           <ReactAnimatedWeather
-            icon={defaults[place.weather.current.icon]}
+            icon={defaults[place.weather.current.icon] || 'SLEET'}
             color={'black'}
             size={64}
             animate={true}

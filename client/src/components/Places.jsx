@@ -72,7 +72,6 @@ class Places extends React.Component {
                 place={place}
                 deletePlace={this.props.deletePlace}
               />)}
->>>>>>> nothing important
           </div>
           <div className="addPlace">
             {this.state.showAddPlace ? (
