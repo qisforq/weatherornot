@@ -232,6 +232,12 @@ app.delete('/places', (req, res) => {
   });
 });
 
-app.listen(8080, () => {
+PORT = 8080
+
+if (process.env.PORT) {
+  PORT = process.env.PORT
+}
+
+app.listen(PORT, () => {
   console.log('listening on port 8080!');
 });
