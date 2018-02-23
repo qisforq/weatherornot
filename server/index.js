@@ -238,19 +238,23 @@ app.get('/places', (req, res) => {
 });
 
 app.delete('/places', (req, res) => {
-  const placeId = req.query.place.id;
+  const placeId = JSON.parse(req.query.place).id
+  console.log('deleteplaces thing: ', placeId);
   // find all commutes that contain this place and delete them
-  db.query(`DELETE FROM commutes WHERE origin="${placeId}" OR dest="${placeId}"`, (err) => {
+  db.query(`DELETE FROM commutes WHERE origin=${placeId} OR destination=${placeId}`, (err) => {
     if (err) {
+      console.log('Trying to delete commutes', err)
       res.status(500).send();
       return;
     }
     // delete place
-    db.query(`DELETE FROM places WHERE id="${placeId}"`, (err) => {
+    db.query(`DELETE FROM places WHERE id=${placeId}`, (err) => {
       if (err) {
+        console.log('Trying to delete places', err)
         res.status(500).send();
         return;
       }
+      console.log('deleted places')
       res.status(200).send();
     });
   });
