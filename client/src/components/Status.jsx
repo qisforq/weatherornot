@@ -9,23 +9,15 @@ class Status extends React.Component {
   }
 
   componentWillMount() {
-
-    // if commutes exits && has at least one item
-      // this.props.commutes.reduce((acc, commute) => {
-      //   if (acc !== snow) {
-      //     let origin = this.props.places.find(place => place.id === commute.origin.id)
-      //   }
-      // })
-
     this.setState(
       {
         status:
       this.props.commutes.reduce((acc, commute) => {
         if (acc !== 'snow') {
         // for the origin of each commute
-          const origin = this.props.places.find(place => place.id === commute.origin.id);
+          const orign = this.props.places.find(place => place.id === commute.origin.id);
 
-          var departureHour = origin.weather.hourly.data.find(hour =>
+          const departureHour = origin.weather.hourly.data.find(hour =>
           // find hour that describes departure time
           // 3600 seconds in hour
             (hour.time > commute.departure - 1800 && hour.time > commute.departure + 1800), // ???
@@ -55,9 +47,9 @@ class Status extends React.Component {
             this.props.commutes.reduce((acc, commute) => {
               if (acc !== 'snow') {
                 // for the destination of each commute
-                var destination = this.props.places.find(place => place.id === commute.destination.id);
+                const destination = this.props.places.find(place => place.id === commute.destination.id);
 
-                var arrivalHour = destination.weather.hourly.data.find(hour =>
+                const arrivalHour = destination.weather.hourly.data.find(hour =>
                   // find hour that describes arrival time
                   // 3600 seconds in hour
                   (hour.time > commute.arrival - 1800 && hour.time > commute.arrival + 1800));
@@ -81,7 +73,6 @@ class Status extends React.Component {
         }
       },
     );
-  }
   }
 
   render() {
