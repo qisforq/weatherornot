@@ -26,19 +26,19 @@ Once the project moves into development, the press release can be used as a touc
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
 
 ## Problem ##
-  > Weather apps tell you about the current weather, and directions apps tell you how to get from point a to point b. No service can easily tell you if it will be raining at some point durring your walking commute.
+  > Weather apps tell you about the current weather, and directions apps tell you how to get from point a to point b. No service can easily tell you if it will be raining at any point during your morning OR evening commute.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > Enter WeatherOrNot! Using our app, you can set a custom home address and work address, then schedule your day's itinerary which calculates your travel time and tells you if it will rain, snow or be a lovely day durring your commute.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "Here at Jonson, we believe that umbrellas are only cool if it is raining. This is why we make WeatherOrNot"
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Simply go to our soon to be hosted link. See our soon to be made marketing page for more information.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "I haven't been caught out in the rain since I started using Weather or Not"
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > npm install our application today!
