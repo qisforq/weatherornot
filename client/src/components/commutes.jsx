@@ -1,5 +1,7 @@
 import React from 'react';
 import CommuteItem from './CommuteItem.jsx';
+import {TimePicker, RadioButtonGroup, RadioButton, DropDownMenu, MenuItem} from 'material-ui'
+import mUI from 'material-ui'
 
 class Commutes extends React.Component {
   constructor(props) {
@@ -26,6 +28,15 @@ class Commutes extends React.Component {
         <div>
 
         </div>
+        <TimePicker name="timePicker" placeholder="Time" />
+        <RadioButtonGroup name="AorD">
+          <RadioButton value="A" label="Arrive" />
+          <RadioButton value="D" label="Depart" />
+        </RadioButtonGroup>
+        <DropDownMenu name="dropDown">
+          <MenuItem value="A" name="Arrive" />
+          <MenuItem value="D" name="Depart" />
+        </DropDownMenu>
         <div>
           <input
             name="deptOrArival"

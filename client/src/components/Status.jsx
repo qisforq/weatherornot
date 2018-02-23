@@ -11,11 +11,11 @@ class Status extends React.Component {
   componentWillMount() {
 
     // if commutes exits && has at least one item
-      this.props.commutes.reduce((acc, commute) => {
-        if (acc !== snow) {
-          let origin = this.props.places.find(place => place.id === commute.origin.id)
-        }
-      })
+      // this.props.commutes.reduce((acc, commute) => {
+      //   if (acc !== snow) {
+      //     let origin = this.props.places.find(place => place.id === commute.origin.id)
+      //   }
+      // })
 
     this.setState(
       {
