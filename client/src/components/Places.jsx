@@ -25,6 +25,18 @@ class Places extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  onDropdownSelect(e) {
+    const lat = e.autocomplete.getPlace().geometry.location.lat();
+    const lng = e.autocomplete.getPlace().geometry.location.lng();
+    const adr = e.autocomplete.getPlace().formatted_address;
+
+    this.setState({
+      lat,
+      lng,
+      address: adr,
+    });
+  }
+
   search(e, placeType) {
     e.preventDefault();
     const {
@@ -50,22 +62,6 @@ class Places extends React.Component {
         showAddWork: !this.state.showAddWork,
       });
     }
-  }
-
-  // onAutocompleteChange(address) {
-  //   this.setState({address})
-  // }
-
-  onDropdownSelect(e) {
-    const lat = e.autocomplete.getPlace().geometry.location.lat();
-    const lng = e.autocomplete.getPlace().geometry.location.lng();
-    const adr = e.autocomplete.getPlace().formatted_address;
-
-    this.setState({
-      lat,
-      lng,
-      address: adr,
-    });
   }
 
   render() {
