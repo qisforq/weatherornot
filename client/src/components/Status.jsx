@@ -17,15 +17,13 @@ class Status extends React.Component {
         }
       })
 
-
-
     this.setState(
       {
         status:
       this.props.commutes.reduce((acc, commute) => {
         if (acc !== 'snow') {
         // for the origin of each commute
-          var origin = this.props.places.find(place => place.id === commute.origin.id);
+          const origin = this.props.places.find(place => place.id === commute.origin.id);
 
           var departureHour = origin.weather.hourly.data.find(hour =>
           // find hour that describes departure time
@@ -83,6 +81,7 @@ class Status extends React.Component {
         }
       },
     );
+  }
   }
 
   render() {
