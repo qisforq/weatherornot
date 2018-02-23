@@ -5,8 +5,8 @@ class Users extends React.Component {
     super(props);
     this.state = {
       toggleInput: true,
-      errors: []
-    }
+      errors: [],
+    };
   }
 
   usernameCheck(name) {

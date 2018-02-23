@@ -13,7 +13,6 @@ class App extends React.Component {
       // places: ['home', 'work'],
       commutes: [],
       places: [],
-      commutes: [],
       username: null
     };
     this.handleName = this.handleName.bind(this)
