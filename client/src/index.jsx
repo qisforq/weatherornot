@@ -25,9 +25,9 @@ class App extends React.Component {
     this.deleteCommutes = this.deleteCommutes.bind(this)
   };
     // this.handleName = this.handleName.bind(this)
-  componentDidMount() {
-
-  }
+  // componentDidMount() {
+  //
+  // }
 
   handleName(name) {
     this.setState({username: name}, () => {
