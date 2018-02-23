@@ -5,6 +5,7 @@ import Users from './components/Users.jsx'
 import Places from './components/Places.jsx';
 import Commutes from './components/Commutes.jsx';
 import Status from './components/Status.jsx'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
   constructor(props) {
@@ -132,6 +133,7 @@ class App extends React.Component {
 
   render() {
     return (
+    <MuiThemeProvider>
       <div>
         <h1>WeatherOrNot</h1>
         <Status commutes={this.state.commutes} places={this.state.places} />
@@ -154,6 +156,7 @@ class App extends React.Component {
           <Commutes commutes={this.state.commutes} addCommuteHandler={this.showMeTheWay}/>
         }
       </div>
+    </MuiThemeProvider>
     );
   }
 }
