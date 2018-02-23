@@ -1,6 +1,15 @@
 const axios = require('axios');
 const geocoder = require('google-geocoder');
-const config = require('./config.js');
+
+if (!process.env.PORT) {
+  const config = require('./config.js');
+} else {
+  config = {
+    googleMapsAPI: process.env.DIRECTIONS_KEY
+    darkSkyAPI: process.env.DARKSKY_KEY
+    geocodeAPI: process.env.GEOCODE_KEY
+  }
+}
 
 // GET REQUEST TO GOOGLEMAPS API FOR LAT/LONG/ ORIGIN/DESTINATION AND DISTANCE/TIME
 
