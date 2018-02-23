@@ -75,14 +75,14 @@ class Places extends React.Component {
     if (home && work) {
       return (
         <div>
-          <PlaceItem key={home.id} place={home} deletePlace={this.props.deletePlace} />
-          <PlaceItem key={work.id} place={work} deletePlace={this.props.deletePlace} />
+          <PlaceItem key={home.id} place={home} deletePlace={() => this.props.deletePlace(home)} />
+          <PlaceItem key={work.id} place={work} deletePlace={() => this.props.deletePlace(work)} />
         </div>
       );
     } else if (home && !work) {
       return (
         <div>
-          <PlaceItem key={home.id} place={home} deletePlace={this.props.deletePlace} />
+          <PlaceItem key={home.id} place={home} deletePlace={() => this.props.deletePlace(home)} />
           {this.state.showAddWork ?
             <form onSubmit={e => this.search(e, 'work')}>
               <LocationAutocomplete
@@ -114,7 +114,7 @@ class Places extends React.Component {
               <button type="submit">Submit</button>
             </form>
             : <button onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Home</button>}
-          <PlaceItem key={work.id} place={work} deletePlace={this.props.deletePlace} />
+          <PlaceItem key={work.id} place={work} deletePlace={() => this.props.deletePlace(work)} />
         </div>
       );
     }
