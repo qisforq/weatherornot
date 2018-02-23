@@ -21,18 +21,12 @@ class App extends React.Component {
     this.deletePlace = this.deletePlace.bind(this)
   };
 
+    this.showMeTheWay = this.showMeTheWay.bind(this)
+    this.getCommutes = this.getCommutes.bind(this)
+    };
+    // this.handleName = this.handleName.bind(this)
   componentDidMount() {
-    axios.get('/weather').then((data) => {
-      console.log('darksky', data);
-    }).catch((error) => {
-      console.log(error, 'axios error');
-    });
 
-    axios.get('/search').then((data) => {
-      console.log('MapsAPI', data);
-    }).catch((error) => {
-      console.log(error, 'axios error');
-    });
   }
 
   handleName(name) {
@@ -45,9 +39,40 @@ class App extends React.Component {
         console.log('ping!? here\'s the .then... (success?)');
         this.getPlacesWeather()
       })
+      .then(() => {
+        this.getCommutes()
+      })
       .catch((err) => {
         console.log(`error on post to /users: ${err}`);
       })
+    })
+  }
+
+  showMeTheWay({time, aOrD, org, dest}) {
+    axios.post('/commutes', {
+      time, aOrD, org, dest, username: this.state.username, name: org + ' > ' + dest
+    })
+      .then((response) => {
+        console.log(response, 'axios response');
+        // this.setState({commutes: response.})
+      })
+      .then(() => {
+        this.getCommutes()
+      })  
+      .catch((error) => {
+        console.log(error, 'axios error');
+      });
+  }
+
+  getCommutes(){
+    return axios.get('/commutes', {
+      params: {
+        username:this.state.username
+      }
+    })
+    .then((data)=> {
+      console.log('GET commutes data: ', data.data)
+      this.setState({commutes: data.data})
     })
   }
 
@@ -71,6 +96,7 @@ class App extends React.Component {
   }
 
   getPlacesWeather(){
+    console.log(this.state)
     axios.get('/places', {
       // username: this.state.username
       params: {
@@ -134,6 +160,10 @@ class App extends React.Component {
           />
         }
         {/* <Commutes/> */}
+        <Users handleName={this.handleName} username={this.state.username} />
+        {this.state.username && <Places places={this.state.places} sendAddress={this.sendAddress}/>}
+        <button onClick={()=> this.getPlacesWeather() }>test getPlacesWeather</button>
+        <Commutes commutes={this.state.commutes} addCommuteHandler={this.showMeTheWay}/>
       </div>
     );
   }

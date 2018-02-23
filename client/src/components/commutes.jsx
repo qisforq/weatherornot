@@ -7,8 +7,8 @@ class Commutes extends React.Component {
     super(props);
     this.state = {
       time: '',
-      deptOrArival: '',
-      origin: '',
+      aOrD: 'D',
+      org: '',
       dest: '',
     };
     this.onChange = this.onChange.bind(this);
@@ -20,6 +20,7 @@ class Commutes extends React.Component {
   }
 
   render() {
+    console.log('ahhhhhh', this.props.commutes)
     return (
       <div>
         <div>
@@ -33,6 +34,8 @@ class Commutes extends React.Component {
             deleteCommute={this.props.deleteCommute}
             onChange={(e) => { this.onChange(e); }}
           />
+        {this.state.aOrD === 'D' ? <button onClick={()=> this.setState({aOrD: 'A'})}>Depart</button>
+        : <button onClick={()=> this.setState({aOrD: 'D'})}>Arrive</button>}
           <input
             name="time"
             type="time"
@@ -40,20 +43,28 @@ class Commutes extends React.Component {
             onChange={(e) => { this.onChange(e); }}
           />
           <input
-            name="origin"
+            name="org"
             type="select"
-            value={this.state.origin}
+            placeholder={this.state.org || "origin"}
+            value={this.state.org}
             onChange={(e) => { this.onChange(e); }}
           />
-
-
           <input
             name="dest"
             type="select"
+            placeholder={this.state.destination || "destination"}
             value={this.state.dest}
             onChange={(e) => { this.onChange(e); }}
           />
-
+          <button onClick={()=> this.props.addCommuteHandler(this.state) } >Get All Commute Data</button>
+        </div>
+         <div>
+          {this.props.commutes.map(commute =>
+            (<CommuteItem
+            key={commute.id}
+            commute={commute}
+            deleteCommute={this.props.deleteCommute}
+          />))}
         </div>
       </div>
     );

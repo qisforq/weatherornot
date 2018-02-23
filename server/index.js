@@ -101,8 +101,17 @@ app.post('/commutes', (req, res) => {
     time, username,
   } = req.body;
 
-  const unQuery = `SELECT id FROM users WHERE username="${username}"`;
-  const query = `INSERT INTO commutes (origin, destination, arriveordepart, name, time, username) VALUES ("${org.id}", "${dest.id}", "${aOrD}", "${name}", "${time}", (${unQuery}));`;
+  // console.log(req.body)
+  // res.end()
+  //undefined name, username
+  // console.log(req.body)
+  // console.log(org)
+  // console.log(dest)
+  console.log(aOrD,name,time, username,)
+  const
+ unQuery = `SELECT id FROM users WHERE username="${username}"`;
+  const query = `INSERT INTO commutes (origin, destination, arriveordepart, name, time, username) VALUES ((SELECT id FROM places WHERE name="${org}"), (SELECT id FROM places WHERE name="${dest}"), "${aOrD}", "${name}", "${time}", (${unQuery}));`;
+  console.log(query)
   db.query(query, (err) => {
     if (err) {
       console.log(err);
@@ -228,6 +237,7 @@ app.get('/places', (req, res) => {
 
     Promise.all(results.map(place => api.getWeather(place).then(placeWithWeath => placeWithWeath)))
       .then((data) => {
+        console.log('places get request', data)
         res.send(data);
       })
       .catch((err) => {
