@@ -66,7 +66,7 @@ class Places extends React.Component {
       return (
         <div>
           <div className="placesBlock">
-            {this.props.places.map((place, i) => <PlaceItem key={place.id} placeName={place.name}/>)}
+            {this.props.places.map(place => <PlaceItem key={place.id} place={place} deletePlace={this.props.deletePlace}/>)}
           </div>
           <div className="addPlace">
             {this.state.showAddPlace ? (
@@ -96,7 +96,17 @@ class Places extends React.Component {
       return (
         <div>
           <div className="placesBlock">
-            {this.props.places.map((place, i) => <PlaceItem key={place.id} placeName={place.name}/>)}
+            {this.props.places.map((place, i) =>
+              <PlaceItem
+                key={place.id}
+                place={place}
+                deletePlace={this.props.deletePlace}
+                // onClick={(e) => {
+                //   console.log('this is onclick');
+                //   this.props.deletePlace(place)
+                // }}
+              />
+            )}
           </div>
         </div>
       );

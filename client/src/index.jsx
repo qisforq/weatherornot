@@ -79,11 +79,10 @@ class App extends React.Component {
       }
     })
       .then((response) => {
-        if (response.data.length){
-          this.setState({
-            places: response.data
-          })
-        }
+        console.log(response.data)
+        this.setState({
+          places: response.data
+        })
         console.log('state.places: ', this.state.places);
       })
       .catch((error) => {
@@ -135,7 +134,7 @@ class App extends React.Component {
             deletePlace={this.deletePlace}
           />
         }
-        <Commutes/>
+        {/* <Commutes/> */}
       </div>
     );
   }
