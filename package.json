@@ -29,6 +29,7 @@
     "google-geocoder": "^0.2.1",
     "location-autocomplete": "^1.2.1",
     "material-ui": "^0.20.0",
+    "moment": "^2.20.1",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.2",
     "node": "^8.9.4",
