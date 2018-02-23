@@ -8,14 +8,17 @@ class Status extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentWillUpdate() {
+    console.log('THE PROPS', this.props);
+  if (this.props.commutes && this.props.commutes.length > 0) {
     this.setState(
       {
         status:
       this.props.commutes.reduce((acc, commute) => {
         if (acc !== 'snow') {
         // for the origin of each commute
-          const orign = this.props.places.find(place => place.id === commute.origin.id);
+          const origin = this.props.places.find(place => place.id === commute.origin.id);
+          console.log('this.props.places:', this.props.places)
 
           const departureHour = origin.weather.hourly.data.find(hour =>
           // find hour that describes departure time
@@ -73,6 +76,7 @@ class Status extends React.Component {
         }
       },
     );
+  }
   }
 
   render() {

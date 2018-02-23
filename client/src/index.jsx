@@ -131,6 +131,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>WeatherOrNot</h1>
+        <Status commutes={this.state.commutes} places={this.state.places} />
         <h1>User...</h1>
         <Users
           handleName={this.handleName}
