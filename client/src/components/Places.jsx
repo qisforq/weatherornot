@@ -152,3 +152,4 @@ class Places extends React.Component {
 }
 
 export default Places;
+

@@ -1,36 +1,40 @@
 import React from 'react';
 
 const CommuteItem = ({ commute, deleteCommute }) => {
-  if (commute.a_or_d === 'A') {
+  console.log('haha',commute)
+  if (commute.arriveordepart === 'A') {
     return (
       <div>
-        <div>{`FROM ${commute.orig}`}</div>
-        <div>{`AT ${commute.time - commute.duration}`}</div>
-        <div><h1>{'>'}</h1></div>
-        <div>{`TO ${commute.dest}`}</div>
-        <div>{`AT ${commute.time}`}</div>
+        <div></div>
+        <div>{`Arriving at: ${commute.time}`}</div>
+        <div>{`From ${commute.origin.name}`}</div>
+        <div>{`To ${commute.destination.name}`}</div>
+        <div>{`Duration ${commute.travelTime.text}`}</div>
         <div>
           <button
             onClick={() => { deleteCommute(commute); }}
           >Delete
           </button>
         </div>
+        <br></br>
+        <br></br>
       </div>
     );
-  } else if (commute.a_or_d === 'D') {
+  } else if (commute.arriveordepart === 'D') {
     return (
       <div>
-        <div>{`FROM ${commute.orig}`}</div>
-        <div>{`AT ${commute.time}`}</div>
-        <div><h1>{'<'}</h1></div>
-        <div>{`TO ${commute.dest}`}</div>
-        <div>{`AT ${commute.time + commute.duration}`}</div>
+        <div>{`Departing at: ${commute.time}`}</div>
+        <div>{`From ${commute.origin.name}`}</div>
+        <div>{`To ${commute.destination.name}`}</div>
+        <div>{`Duration ${commute.travelTime.text}`}</div>
         <div>
           <button
             onClick={() => { deleteCommute(commute); }}
           >Delete
           </button>
         </div>
+        <br></br>
+        <br></br>
       </div>
     );
   }
