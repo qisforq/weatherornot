@@ -33,10 +33,12 @@
     "node": "^8.9.4",
     "pg": "^7.4.1",
     "react": "^16.2.0",
+    "react-animated-weather": "^1.0.3",
     "react-dom": "^16.2.0",
     "react-load-script": "0.0.6",
     "react-places-autocomplete": "^6.1.2",
-    "sequelize": "^4.33.4"
+    "sequelize": "^4.33.4",
+    "skycons": "^1.0.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",
