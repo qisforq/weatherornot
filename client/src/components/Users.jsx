@@ -17,7 +17,7 @@ class Users extends React.Component {
       newErrors.push('Please use more than 3 characters')
     }
     if (name.match(/\W/)) {
-      newErrors\.push('Please only use numbers, letters and underscores')
+      newErrors.push('Please only use numbers, letters and underscores')
     }
     if (!name[0].match(/[a-zA-Z]/)) {
       newErrors.push('First character must be a letter')
