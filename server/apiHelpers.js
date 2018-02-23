@@ -32,7 +32,8 @@ exports.getTravelTime = (commute) => {
   // get the UTC string for the arrival or departure time for today's date
   let today = new Date().toString().split(' ');
   today[4] = time;
-  today = Date.parse(today.join(' '));
+  today = Date.parse(today.join(' ')).toString();
+  today = today.slice(0, today.length - 3);
 
   const URL = `${rootURL}origin=${originStr}&destination=${destinationStr}&${deptOrArive}=${today}&key=${config.googleMapsAPI}&mode="walking"`;
 
@@ -59,7 +60,7 @@ exports.getWeather = (place) => {
 
   return axios.get(`${rootUrl}/${APIKey}/${place.latitude},${place.longitude}`)
     .then((data, err) => Object.assign(place, { weather: { current: data.data.currently, hourly: data.data.hourly } }))
-    .catch(err => console.log('ALLLEGRA IS HELPING', err, place));
+    .catch(err => console.log(err, place));
 };
 
 exports.geo = geocoder({

@@ -9,10 +9,6 @@ const geocoder = require('google-geocoder')({
   key: config.geocodeAPI,
 });
 
-let axios = require('axios')
-
-
-// var items = require('../database-mysql');
 const app = express();
 
 app.use(bodyParser.json());
@@ -24,35 +20,6 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
  | | | / __|/ _ \ '__/ __|
  | |_| \__ \  __/ |  \__ \
   \___/|___/\___|_|  |___/
-=======
-
-//currentWeather
-
-app.get('/weather', (req,res)=>{
-  const rootUrl = 'https://api.darksky.net/forecast';
-  const APIKey = config.darkSkyAPI;
-  const lat = 40.750487
-  const lng = -73.976401
-
-  axios.get(`${rootUrl}/${APIKey}/${lat},${lng}`)
-       .then(function(data){
-       	db.query(`INSERT INTO places (name, latitude, longitude, username) VALUES ("Eric", "${lat}", "${lng}", "JAJAJA")`, (err, ress)=>{
-       		if(err){
-       			console.log(err)
-       		}
-       		console.log('RESS', res)
-       		res.send()
-       	})
-         res.status(200).json(data.data);
-       })
-       .catch(function(error) {
-         console.log(error);
-       })
-})
-
-//Users
-app.post('/users', (req, res) => {
->>>>>>> test
 
 */
 app.post('/users', (req, res) => {
@@ -101,16 +68,8 @@ app.post('/commutes', (req, res) => {
     time, username,
   } = req.body;
 
-  // console.log(req.body)
-  // res.end()
-  //undefined name, username
-  // console.log(req.body)
-  // console.log(org)
-  // console.log(dest)
-  console.log(req.body, "<<<<")
   const unQuery = `SELECT id FROM users WHERE username="${username}"`;
   const query = `INSERT INTO commutes (origin, destination, arriveordepart, name, time, username) VALUES ((SELECT id FROM places WHERE name="${org}" AND username=(${unQuery})), (SELECT id FROM places WHERE name="${dest}" AND username=(${unQuery})), "${aOrD}", "${name}", "${time}", (${unQuery}));`;
-  console.log(query)
   db.query(query, (err) => {
     if (err) {
       res.send('IT BROKE');

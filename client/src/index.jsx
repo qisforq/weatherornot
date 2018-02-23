@@ -125,6 +125,9 @@ class App extends React.Component {
       .then(() => {
         this.getPlacesWeather()
       })
+      .then(() => {
+        this.getCommutes()
+      })
   }
 
   render() {
