@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactAnimatedWeather from 'react-animated-weather';
 
 class Status extends React.Component {
   constructor(props) {
@@ -10,10 +11,15 @@ class Status extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) { // requires nextProps to see the new props (see React docs)
-    console.log('COMPWILLPROPS   ', 'commutes', nextProps.commutes, 'places', nextProps.places)
-    if (nextProps.commutes && nextProps.commutes.length > 0) {
+    let newProps = Object.assign({}, nextProps);
+    if (nextProps.places.length === 0) {
+      newProps.places = this.props.places;
+    }
+    console.log("this.props.place>>>>>>>>", this.props.places);
+    console.log('COMPWILLPROPS   ', 'commutes', newProps.commutes, 'places', newProps.places)
+    if (newProps.commutes && newProps.commutes.length > 0) {
       console.log('running')
-      this.getWeather(nextProps);
+      this.getWeather(newProps);
     }
   }
 
@@ -57,12 +63,40 @@ class Status extends React.Component {
       console.log(arrivalHour)
       statusArr.push(arrivalHour.icon);
     });
+    console.log("WHAT IS GOIN ON???", statusArr);
     this.setState({ status: statusArr });
   }
 
   render() {
+    let statIcon = 'CLEAR_DAY';
+    let message = '';
+
+    const statArr = this.state.status;
+    console.log(this.state.status,"<<<<  the status array inside render()")
+    console.log( "does stat array include rain?", statArr.includes('rain'));
+    if (statArr.includes('rain')) {
+      statIcon = 'RAIN'
+      message = `Looks like it's going to RAIN at some point during your day! Don't forget your umbrella!`
+    } else if (statArr.includes('snow')) {
+      message = `Looks like it's going to SNOW at some point during your day! Don't forget your boots!.`
+      statIcon = 'SNOW'
+    } else if (statArr.includes('clear')) {
+      message = `Well look at that! Your day is looking beautiful.`
+      statIcon = 'CLEAR_DAY'
+    }
+
     return (
-      <pre>{JSON.stringify(this.state.status)}</pre>
+      // <pre>{JSON.stringify(this.state.status)}</pre>
+      <div>
+        <ReactAnimatedWeather
+          icon={statIcon}
+          color="goldenrod"
+          size={128}
+          animate
+        />
+      <div>{message}</div>
+      </div>
+      //if arr includes 'snow'
     );
   }
 }

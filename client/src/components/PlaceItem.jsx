@@ -11,12 +11,12 @@ const PlaceItem = ({ place, deletePlace }) => {
     'clear-night': 'CLEAR_NIGHT',
     'partly-cloudy-day': 'PARTLY_CLOUDY_DAY',
     'partly-cloudy-night': 'PARTLY_CLOUDY_NIGHT',
-    CLOUDY: 'cloudy',
-    RAIN: 'rain',
-    SLEET: 'sleet',
-    SNOW: 'snow',
-    WIND: 'wind',
-    FOG: 'fog',
+    'CLOUDY': 'cloudy',
+    'RAIN': 'rain',
+    'SLEET': 'sleet',
+    'SNOW': 'snow',
+    'WIND': 'wind',
+    'FOG': 'fog',
   };
 
   return (
@@ -27,7 +27,7 @@ const PlaceItem = ({ place, deletePlace }) => {
       <ReactAnimatedWeather
           icon={defaults[place.weather.current.icon] || 'SLEET'}
           color="black"
-          size={64}
+          size={32}
           animate
         />
       <label>{place.name}</label>
