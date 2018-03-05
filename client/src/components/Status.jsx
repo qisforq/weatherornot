@@ -12,19 +12,18 @@ class Status extends React.Component {
 
   componentWillReceiveProps(nextProps) { // requires nextProps to see the new props (see React docs)
     let newProps = Object.assign({}, nextProps);
+
     if (nextProps.places.length === 0) {
       newProps.places = this.props.places;
     }
-    console.log("this.props.place>>>>>>>>", this.props.places);
-    console.log('COMPWILLPROPS   ', 'commutes', newProps.commutes, 'places', newProps.places)
+
     if (newProps.commutes && newProps.commutes.length > 0) {
-      console.log('running')
       this.getWeather(newProps);
     }
   }
 
   getWeather(props) { // props about to be passed into the component
-    if(props.places.length > 0) {
+    if (props.places.length > 0) {
       let statusArr = [];
       props.commutes.forEach((commute) => {
         console.log('checking origin');
@@ -37,12 +36,8 @@ class Status extends React.Component {
           const hourUNIX = hour.time;
           const commuteUNIX = Math.floor(new Date(commute.departure).getTime() / 1000);
 
-          // console.log('hour: ', hourUNIX, '  comm:', commuteUNIX);
-
-
           return (hourUNIX > commuteUNIX - 1800 && hourUNIX > commuteUNIX + 1800); // ???
         });
-        console.log(departureHour)
         statusArr.push(departureHour.icon);
       });
 
@@ -58,14 +53,11 @@ class Status extends React.Component {
           const hourUNIX = hour.time;
           const commuteUNIX = Math.floor(new Date(commute.departure).getTime() / 1000);
 
-          console.log('hour: ', hourUNIX, '  comm:', commuteUNIX);
-
           return (hourUNIX > commuteUNIX - 1800 && hourUNIX > commuteUNIX + 1800);
         });
         console.log(arrivalHour)
         statusArr.push(arrivalHour.icon);
       });
-      console.log("WHAT IS GOIN ON???", statusArr);
       this.setState({ status: statusArr });
     }
   }
@@ -75,8 +67,6 @@ class Status extends React.Component {
     let message = '';
 
     const statArr = this.state.status;
-    console.log(this.state.status,"<<<<  the status array inside render()")
-    console.log( "does stat array include rain?", statArr.includes('rain'));
     if (statArr.includes('rain')) {
       statIcon = 'RAIN'
       message = `Looks like it's going to RAIN at some point during your day! Don't forget your umbrella!`

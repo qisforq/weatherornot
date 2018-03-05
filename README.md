@@ -30,7 +30,7 @@ Get keys for
 Darksky API
 Google Directions API
 Google Geolocator API
-
+NOTE: Google Autocomplete key is in client - should be moved to backend
 
 ## Requirements
 
@@ -48,7 +48,12 @@ npm install
 
 ### Roadmap
 
-Styl
+Add timeline instead of status to show a user's commute and weather throughout their day. Think of Waze diriving timeline.
+Style using a material UI like design
+Add multiple places other than just home and work
+Push notifications
+Google Cal integration
+Predict the future
 
 ## Contributing
 

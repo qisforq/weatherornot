@@ -32,7 +32,6 @@ class Users extends React.Component {
           <span
             style={{fontWeight:910, marginTop: '20px', marginBottom: '20px'}}
             onClick={() => {
-              console.log(`ow! bye ${this.props.username}`);
               this.setState({toggleInput: true})
             }}>
             {`${this.props.username}'s Weather Timeline`}
@@ -51,7 +50,6 @@ class Users extends React.Component {
                 this.setState({
                   toggleInput: false
                 })
-                console.log(`here comes ${event.target.value}`)
               }
             }}
             onChange={event => {

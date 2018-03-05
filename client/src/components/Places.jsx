@@ -39,7 +39,6 @@ class Places extends React.Component {
   }
 
   toggleAddPlace(locationType) {
-    console.log(locationType)
     // This function triggers the "Add a place" button to show the "enter address form"
     if (locationType === 'Home') {
       this.setState({

@@ -2,11 +2,11 @@ const axios = require('axios');
 const geocoder = require('google-geocoder');
 
 if (!process.env.PORT) {
-  const config = require('./config.js');
+  var config = require('./config.js');
 } else {
-  config = {
-    googleMapsAPI: process.env.DIRECTIONS_KEY
-    darkSkyAPI: process.env.DARKSKY_KEY
+  var config = {
+    googleMapsAPI: process.env.DIRECTIONS_KEY,
+    darkSkyAPI: process.env.DARKSKY_KEY,
     geocodeAPI: process.env.GEOCODE_KEY
   }
 }
@@ -74,5 +74,5 @@ exports.getWeather = (place) => {
 };
 
 exports.geo = geocoder({
-  key: config.geocodeAPI,
+  key: config.geocodeAPI
 });
