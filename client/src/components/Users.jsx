@@ -28,20 +28,20 @@ class Users extends React.Component {
   render() {
     return (
       <div>
-        <h1>hello.</h1>
         {!this.state.toggleInput ?
           <span
+            style={{fontWeight:910, marginTop: '20px', marginBottom: '20px'}}
             onClick={() => {
               console.log(`ow! bye ${this.props.username}`);
               this.setState({toggleInput: true})
             }}>
-            {`${this.props.username}'s places`}
+            {`${this.props.username}'s Weather Timeline`}
           </span>
           :
           <input
             autoFocus
             type="text"
-            placeholder={this.state.username || "name"}
+            placeholder={this.state.username || "Enter a Username"}
             value={this.state.input}
             onKeyUp={event => {
               if (event.keyCode === 13
