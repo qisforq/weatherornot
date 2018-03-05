@@ -20,7 +20,17 @@
 
 ## Usage
 
-> Some usage instructions
+> 
+
+To run locally use:
+npm run rect-dev
+npm run server-dev
+
+Get keys for 
+Darksky API
+Google Directions API
+Google Geolocator API
+
 
 ## Requirements
 
@@ -33,15 +43,12 @@ TBD
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+Styl
 
 ## Contributing
 
