@@ -55,6 +55,8 @@ Push notifications
 Google Cal integration
 Predict the future
 
+See diagram for arcitecture and mvp+ features (shown highlighted in grey) https://docs.google.com/drawings/d/1iH1lvPSc7Arz6kDMuYgxh8z5ffp6A4q_RGDtDKyb3ck/edit?usp=sharing
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
