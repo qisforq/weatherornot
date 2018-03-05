@@ -18,53 +18,56 @@ class Status extends React.Component {
     console.log("this.props.place>>>>>>>>", this.props.places);
     console.log('COMPWILLPROPS   ', 'commutes', newProps.commutes, 'places', newProps.places)
     if (newProps.commutes && newProps.commutes.length > 0) {
-      console.log('running');
+      console.log('running')
       this.getWeather(newProps);
     }
   }
 
   getWeather(props) { // props about to be passed into the component
-    let statusArr = [];
-    props.commutes.forEach((commute) => {
-      console.log('checking origin');
-      // for the origin of each commute
-      const origin = props.places.find(place => place.id === commute.origin.id);
+    if(props.places.length > 0) {
+      let statusArr = [];
+      props.commutes.forEach((commute) => {
+        console.log('checking origin');
+        // for the origin of each commute
+        const origin = props.places.find(place => place.id === commute.origin.id);
 
-      const departureHour = origin.weather.hourly.data.find((hour) => {
-        // find hour that describes departure time
-        // 3600 seconds in hour
-        const hourUNIX = hour.time;
-        const commuteUNIX = Math.floor(new Date(commute.departure).getTime() / 1000);
+        const departureHour = origin.weather.hourly.data.find((hour) => {
+          // find hour that describes departure time
+          // 3600 seconds in hour
+          const hourUNIX = hour.time;
+          const commuteUNIX = Math.floor(new Date(commute.departure).getTime() / 1000);
 
-        // console.log('hour: ', hourUNIX, '  comm:', commuteUNIX);
+          // console.log('hour: ', hourUNIX, '  comm:', commuteUNIX);
 
 
-        return (hourUNIX > commuteUNIX - 1800 && hourUNIX > commuteUNIX + 1800); // ???
+          return (hourUNIX > commuteUNIX - 1800 && hourUNIX > commuteUNIX + 1800); // ???
+        });
+        console.log(departureHour)
+        statusArr.push(departureHour.icon);
       });
-      console.log(departureHour)
-      statusArr.push(departureHour.icon);
-    });
 
-    props.commutes.forEach((commute) => {
-      console.log('checking destination');
-      // for the destination of each commute
-      const destination = props.places.find(place => place.id === commute.destination.id);
+      props.commutes.forEach((commute) => {
 
-      const arrivalHour = destination.weather.hourly.data.find((hour) => {
-        // find hour that describes arrival time
-        // 3600 seconds in hour
-        const hourUNIX = hour.time;
-        const commuteUNIX = Math.floor(new Date(commute.departure).getTime() / 1000);
+        console.log('checking destination');
+        // for the destination of each commute
+        const destination = props.places.find(place => place.id === commute.destination.id);
 
-        console.log('hour: ', hourUNIX, '  comm:', commuteUNIX);
+        const arrivalHour = destination.weather.hourly.data.find((hour) => {
+          // find hour that describes arrival time
+          // 3600 seconds in hour
+          const hourUNIX = hour.time;
+          const commuteUNIX = Math.floor(new Date(commute.departure).getTime() / 1000);
 
-        return (hourUNIX > commuteUNIX - 1800 && hourUNIX > commuteUNIX + 1800);
+          console.log('hour: ', hourUNIX, '  comm:', commuteUNIX);
+
+          return (hourUNIX > commuteUNIX - 1800 && hourUNIX > commuteUNIX + 1800);
+        });
+        console.log(arrivalHour)
+        statusArr.push(arrivalHour.icon);
       });
-      console.log(arrivalHour)
-      statusArr.push(arrivalHour.icon);
-    });
-    console.log("WHAT IS GOIN ON???", statusArr);
-    this.setState({ status: statusArr });
+      console.log("WHAT IS GOIN ON???", statusArr);
+      this.setState({ status: statusArr });
+    }
   }
 
   render() {

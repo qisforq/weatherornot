@@ -25,18 +25,6 @@ class Places extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onDropdownSelect(e) {
-    const lat = e.autocomplete.getPlace().geometry.location.lat();
-    const lng = e.autocomplete.getPlace().geometry.location.lng();
-    const adr = e.autocomplete.getPlace().formatted_address;
-
-    this.setState({
-      lat,
-      lng,
-      address: adr,
-    });
-  }
-
   search(e, placeType) {
     e.preventDefault();
     const {
@@ -64,6 +52,22 @@ class Places extends React.Component {
     }
   }
 
+  // onAutocompleteChange(address) {
+  //   this.setState({address})
+  // }
+
+  onDropdownSelect(e) {
+    const lat = e.autocomplete.getPlace().geometry.location.lat();
+    const lng = e.autocomplete.getPlace().geometry.location.lng();
+    const adr = e.autocomplete.getPlace().formatted_address;
+
+    this.setState({
+      lat,
+      lng,
+      address: adr,
+    });
+  }
+
   render() {
     const home = this.props.places.find(place => place.name === 'home');
     const work = this.props.places.find(place => place.name === 'work');
@@ -89,9 +93,9 @@ class Places extends React.Component {
                 onChange={(e) => { this.onChange(e); }}
                 onDropdownSelect={(e) => { this.onDropdownSelect(e); }}
               />
-              <button type="submit">Submit</button>
+              <button style={{backgroundColor:'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px'}} type="submit">Submit</button>
             </form>
-            : <button onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Work</button>}
+            : <button style={{backgroundColor:'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px', marginLeft: '1%', marginTop: '10px'}}  onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Work</button>}
         </div>
       );
     } else if (!home && work) {
@@ -107,9 +111,9 @@ class Places extends React.Component {
                 onChange={(e) => { this.onChange(e); }}
                 onDropdownSelect={(e) => { this.onDropdownSelect(e); }}
               />
-              <button type="submit">Submit</button>
+              <button  style={{backgroundColor:'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px'}} type="submit">Submit</button>
             </form>
-            : <button onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Home</button>}
+            : <button style={{backgroundColor:'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px', marginLeft: '1%', marginTop: '10px'}} onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Home</button>}
           <PlaceItem key={work.id} place={work} deletePlace={() => this.props.deletePlace(work)} />
         </div>
       );
@@ -126,9 +130,9 @@ class Places extends React.Component {
             onChange={(e) => { this.onChange(e); }}
             onDropdownSelect={(e) => { this.onDropdownSelect(e); }}
           />
-          <button type="submit">Submit</button>
+          <button  style={{backgroundColor:'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px'}}  type="submit">Submit</button>
         </form>
-        : <button onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Home</button>}
+        : <button style={{backgroundColor: 'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px', marginLeft: '1%', marginTop: '10px'}} onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Home</button>}
       {this.state.showAddWork ?
         <form onSubmit={e => this.search(e, 'work')}>
           <LocationAutocomplete
@@ -139,13 +143,12 @@ class Places extends React.Component {
             onChange={(e) => { this.onChange(e); }}
             onDropdownSelect={(e) => { this.onDropdownSelect(e); }}
           />
-          <button type="submit">Submit</button>
+          <button  style={{backgroundColor:'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px'}}  type="submit">Submit</button>
         </form>
-        : <button onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Work</button>}
+        : <button style={{backgroundColor:'rgb(0, 148, 255)', fontWeight: 500, borderRadius: '7px', marginLeft: '1%', marginTop: '10px'}}  onClick={(e)=>this.toggleAddPlace(e.target.innerText)}>Work</button>}
     </div>
     );
   }
 }
 
 export default Places;
-

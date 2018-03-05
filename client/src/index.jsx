@@ -141,37 +141,37 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <MuiThemeProvider>
-        <div>
-          <h1>WeatherOrNot</h1>
+      var image = 'https://industries.basf.com/images/north-america/USA/Industry/Agriculture/Crop%20Protection/US%20Crop%20Products/Headline_%20AMP_corn_Stock_Getty_176693544_RF_ULS.jpg/_jcr_content/renditions/cq5dam.web.banner_overview.banner_12.jpg'
+      return (
+        <div >
+          <div className="jumbotron text-center" style={{backgroundImage : `url(${image})`, fontFamily: 'sans-serif'}}>
+          <h1 >WeatherOrNot</h1>
+          </div>
           <Status commutes={this.state.commutes} places={this.state.places} />
-          <h1>User...</h1>
           <Users
-          handleName={this.handleName}
-          username={this.state.username}
-        />
-          {
-          this.state.username && // render after username is selected
-          <Places
-            places={this.state.places}
-            sendAddress={this.sendAddress}
+            handleName={this.handleName}
             username={this.state.username}
-            deletePlace={this.deletePlace}
           />
-        }
+          {
+            this.state.username && // render after username is selected
+            <Places
+              places={this.state.places}
+              sendAddress={this.sendAddress}
+              username={this.state.username}
+              deletePlace={this.deletePlace}
+            />
+          }
           {/* <Commutes/> */}
           {this.state.places.length > 1 &&
-          <Commutes
-            commutes={this.state.commutes}
-            addCommuteHandler={this.showMeTheWay}
-            deleteCommutes={this.deleteCommutes}
-          />
-        }
+            <Commutes
+              commutes={this.state.commutes}
+              addCommuteHandler={this.showMeTheWay}
+              deleteCommutes={this.deleteCommutes}
+            />
+          }
         </div>
-      </MuiThemeProvider>
-    );
-  }
+      );
+    }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
