@@ -23,18 +23,16 @@
 > 
 
 To run locally use:
-npm run rect-dev
-npm run server-dev
+- npm run rect-dev
+- npm run server-dev
 
 Get keys for 
-Darksky API
-Google Directions API
-Google Geolocator API
-NOTE: Google Autocomplete key is in client - should be moved to backend
+- Darksky API
+- Google Directions API
+- Google Geolocator API
+- NOTE: Google Autocomplete key is in client - should be moved to backend
 
 ## Requirements
-
-TBD
 
 ## Development
 
@@ -48,14 +46,15 @@ npm install
 
 ### Roadmap
 
-Add timeline instead of status to show a user's commute and weather throughout their day. Think of Waze diriving timeline.
-Style using a material UI like design
-Add multiple places other than just home and work
-Push notifications
-Google Cal integration
-Predict the future
+- Add timeline instead of status to show a user's commute and weather throughout their day. Think of Waze diriving timeline.
+- Style using a material UI like design
+- Add multiple places other than just home and work
+- Push notifications
+- Google Cal integration
+- Predict the future
 
-See diagram for arcitecture and mvp+ features (shown highlighted in grey) https://docs.google.com/drawings/d/1iH1lvPSc7Arz6kDMuYgxh8z5ffp6A4q_RGDtDKyb3ck/edit?usp=sharing
+- See diagram for arcitecture and mvp+ features (shown highlighted in grey) 
+- https://docs.google.com/drawings/d/1iH1lvPSc7Arz6kDMuYgxh8z5ffp6A4q_RGDtDKyb3ck/edit?usp=sharing
 
 ## Contributing
 
