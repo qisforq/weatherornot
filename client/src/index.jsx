@@ -5,7 +5,6 @@ import Users from './components/Users.jsx';
 import Places from './components/Places.jsx';
 import Commutes from './components/Commutes.jsx';
 import Status from './components/Status.jsx';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends React.Component {
   constructor(props) {

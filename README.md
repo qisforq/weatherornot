@@ -20,7 +20,17 @@
 
 ## Usage
 
-> Some usage instructions
+> 
+
+To run locally use:
+npm run rect-dev
+npm run server-dev
+
+Get keys for 
+Darksky API
+Google Directions API
+Google Geolocator API
+NOTE: Google Autocomplete key is in client - should be moved to backend
 
 ## Requirements
 
@@ -33,15 +43,17 @@ TBD
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+Add timeline instead of status to show a user's commute and weather throughout their day. Think of Waze diriving timeline.
+Style using a material UI like design
+Add multiple places other than just home and work
+Push notifications
+Google Cal integration
+Predict the future
 
 ## Contributing
 
