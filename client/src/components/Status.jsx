@@ -18,7 +18,7 @@ class Status extends React.Component {
     console.log("this.props.place>>>>>>>>", this.props.places);
     console.log('COMPWILLPROPS   ', 'commutes', newProps.commutes, 'places', newProps.places)
     if (newProps.commutes && newProps.commutes.length > 0) {
-      console.log('running')
+      console.log('running');
       this.getWeather(newProps);
     }
   }
