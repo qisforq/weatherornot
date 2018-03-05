@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const api = require('./apiHelpers.js');
@@ -6,7 +5,7 @@ const path = require('path');
 const { db } = require('../db/mysql.js');
 const config = require('./config.js');
 const geocoder = require('google-geocoder')({
-  key: config.geocodeAPI,
+  key: process.env.GEOCODE_KEY || config.geocodeAPI,
 });
 
 const app = express();
@@ -23,21 +22,22 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 */
 app.post('/users', (req, res) => {
-  // expecting body: {username: USERNAME}
   const { username } = req.body;
 
   // check if user exists
   db.query(`SELECT * FROM users WHERE username="${username}"`, (err, results) => {
     if (err) {
       console.log(err);
-      res.send('error');
+      res.status(500).send();
       return;
     }
+
+    // if it does not exist add to db
     if (!results.length) {
       db.query(`INSERT INTO users (username) VALUES ("${username}");`, (err, results) => {
         if (err) {
           console.log(err);
-          res.send('error');
+          res.status(500).send();
           return;
         }
         res.send('Added new user');
@@ -47,11 +47,6 @@ app.post('/users', (req, res) => {
     }
   });
 });
-
-app.get('/users', (req, res) => {
-  // Will send back all of user's data... do this later
-});
-
 
 /*
    ____                                _
@@ -68,11 +63,17 @@ app.post('/commutes', (req, res) => {
     time, username,
   } = req.body;
 
+
   const unQuery = `SELECT id FROM users WHERE username="${username}"`;
-  const query = `INSERT INTO commutes (origin, destination, arriveordepart, name, time, username) VALUES ((SELECT id FROM places WHERE name="${org}" AND username=(${unQuery})), (SELECT id FROM places WHERE name="${dest}" AND username=(${unQuery})), "${aOrD}", "${name}", "${time}", (${unQuery}));`;
+
+  const query = `INSERT INTO commutes (origin, destination, arriveordepart, name, time, username)
+                 VALUES ((SELECT id FROM places WHERE name="${org}" AND username=(${unQuery})), 
+                 (SELECT id FROM places WHERE name="${dest}"
+                  AND username=(${unQuery})), "${aOrD}", "${name}", "${time}", (${unQuery}));`;
+
   db.query(query, (err) => {
     if (err) {
-      res.send('IT BROKE');
+      res.status(500).send();
       return;
     }
     res.send('Posted commute!');
@@ -80,9 +81,9 @@ app.post('/commutes', (req, res) => {
 });
 
 app.get('/commutes', (req, res) => {
-  const username = req.query.username;
+  const { username } = req.query;
 
-  // get data from commutes table
+  // get data from commutes table for provided user
   db.query(`SELECT * FROM commutes WHERE username=(SELECT id FROM users WHERE username="${username}")`, (err, commutes) => {
     // get lng and lat for each place
     Promise.all(commutes.map(commute => new Promise((resolve) => {
@@ -94,8 +95,9 @@ app.get('/commutes', (req, res) => {
       });
     })))
       .then((commutesWithCords) => {
-        // run those objects through the api.getTravelTime helper function
-        return Promise.all(commutesWithCords.map((commute => api.getTravelTime(commute).then(commuteWithTravelTime => commuteWithTravelTime))));
+        // run those commute objects through the api.getTravelTime helper function
+        return Promise.all(commutesWithCords.map((commute => api.getTravelTime(commute)
+          .then(commuteWithTravelTime => commuteWithTravelTime))));
         // add travel time to commute object
       })
       .catch((errorMsg) => {
@@ -109,14 +111,9 @@ app.get('/commutes', (req, res) => {
 });
 
 app.delete('/commutes', (req, res) => {
-  // const placeId = req.query.commute.id;
-  console.log('manosthe grape god',req.query.commuteId.id)
-  // console.log(req.query)
-  // console.log(req)
   const commuteId = JSON.parse(req.query.commuteId).id;
   db.query(`DELETE FROM commutes WHERE id="${commuteId}"`, (err) => {
     if (err) {
-        console.log('fuck')
       res.status(500).send();
       return;
     }
@@ -135,37 +132,34 @@ app.delete('/commutes', (req, res) => {
 app.post('/places', (req, res) => {
 
   let {
-    address,
-    placeType,
-    lat,
-    lng,
-    username,
+    address, placeType,
+    lat, lng, username,
   } = req.body;
 
-  // console.log('server recieved username: ', username);
-
-  console.log('POST place');
-  db.query(`SELECT * FROM places WHERE name="${placeType}" AND username=(SELECT username FROM users WHERE id="${username}");`, (err, result) => {
+  // Check if place already exists with the passed in place name
+  db.query(`SELECT * FROM places WHERE name="${placeType}" 
+            AND username=(SELECT username FROM users WHERE id="${username}");`, (err, result) => {
+              
     if (err) {
       console.log(err)
       res.status(500).send();
       return;
     }
 
-    if (result.length) {
+    if (result.length > 0) {
       console.log('place exists with that name for the user', username);
       res.status(200).send('place already exists');
       return;
     }
 
+    // Get the lng and lat for the passed in address
     geocoder.find(address, (err, geoData) => {
-      console.log('geocoder works');
-
       if (err) {
         res.status(200).send('Sorry, the address you submitted is not valid');
         return;
       }
 
+      // If the client has not provided lng and lat, reassign using geocoder API lng and lat
       if (geoData !== undefined) {
         if (!lng & !lat) {
           lat = geoData[0].location.lat;
@@ -173,12 +167,15 @@ app.post('/places', (req, res) => {
         }
       }
 
+      // add place
       const unQuery = `SELECT id FROM users WHERE username="${username}"`;
-      const query = `INSERT INTO places (name, latitude, longitude, username) VALUES ("${placeType}", "${lat}", "${lng}", (${unQuery}));`;
+      const query = `INSERT INTO places (name, latitude, longitude, username) 
+                    VALUES ("${placeType}", "${lat}", "${lng}", (${unQuery}));`;
+                    
       db.query(query, (err) => {
         if (err) {
           console.log(err);
-          res.status(500).send('error');
+          res.status(500).send();
           return;
         }
         res.send('added place to db');
@@ -191,12 +188,14 @@ app.post('/places', (req, res) => {
 app.get('/places', (req, res) => {
   const { username } = req.query;
 
+  // Get places for a specified user
   db.query(`SELECT * FROM places WHERE username=(SELECT id FROM users WHERE username="${username}");`, (err, results) => {
     if (err) {
       res.status(500).send();
       return;
     }
 
+    // Attach the current day's weather data from api onto the place object
     Promise.all(results.map(place => api.getWeather(place).then(placeWithWeath => placeWithWeath)))
       .then((data) => {
         console.log('places get request', data)
@@ -209,20 +208,18 @@ app.get('/places', (req, res) => {
   });
 });
 
+
 app.delete('/places', (req, res) => {
   const placeId = JSON.parse(req.query.place).id
-  console.log('deleteplaces thing: ', placeId);
   // find all commutes that contain this place and delete them
   db.query(`DELETE FROM commutes WHERE origin=${placeId} OR destination=${placeId}`, (err) => {
     if (err) {
-      console.log('Trying to delete commutes', err)
       res.status(500).send();
       return;
     }
     // delete place
     db.query(`DELETE FROM places WHERE id=${placeId}`, (err) => {
       if (err) {
-        console.log('Trying to delete places', err)
         res.status(500).send();
         return;
       }
@@ -232,7 +229,7 @@ app.delete('/places', (req, res) => {
   });
 });
 
-PORT = 8080
+var PORT = 8080
 
 if (process.env.PORT) {
   PORT = process.env.PORT
