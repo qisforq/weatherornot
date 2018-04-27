@@ -1,6 +1,6 @@
 # Weather Or Not
 
-> Get the weather based on your commute for the day.
+Weather Or Not is an application that calculates a weather timeline for your day, taking into account all the places on your itinerary for that day. Enter in the locations you plan on visiting, and the time you plan on being there, and WeatherOrNot will calculate your weather timeline and tell you *whether or not* it's going to rain during your day!
 
 ## Team
 
