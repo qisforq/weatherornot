@@ -30,13 +30,26 @@ TBD
 
 ### Installing Dependencies
 
-From within the root directory:
 
-```sh
-sudo npm install -g bower
-npm install
-bower install
+1. Fork and clone:
+`git clone https://github.com/hr-jonson/weatherornot.git`
+
+2. From within the root directory:
+```npm install```
+
+```npm run server-dev```
+
+3. database
 ```
+mysql.server start
+npm run sql-dev
+```
+4. webpack
+```npm run react-dev```
+
+5. local server
+```npm run server-dev```
+
 
 ### Roadmap
 
