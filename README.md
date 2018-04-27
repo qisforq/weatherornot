@@ -1,6 +1,6 @@
 # Weather Or Not
 
-> Get the weather based on your commute for the day.
+Weather Or Not is an application that calculates a weather timeline for your day, taking into account all the places on your itinerary for that day. Enter in the locations you plan on visiting, and the time you plan on being there, and WeatherOrNot will calculate your weather timeline and tell you *whether or not* it's going to rain during your day!
 
 ## Team
 
@@ -20,13 +20,13 @@
 
 ## Usage
 
-> 
+>
 
 To run locally use:
 - npm run rect-dev
 - npm run server-dev
 
-Get keys for 
+Get keys for
 - Darksky API
 - Google Directions API
 - Google Geolocator API
@@ -38,11 +38,25 @@ Get keys for
 
 ### Installing Dependencies
 
-From within the root directory:
 
-```sh
-npm install
+1. Fork and clone:
+```git clone https://github.com/hr-jonson/weatherornot.git```
+
+2. From within the root directory:
+`npm install`
+
+3. Start the database (in a new terminal window):
 ```
+mysql.server start
+npm run sql-dev
+```
+
+4. start webpack (in a new terminal window):
+```npm run react-dev```
+
+5. start local server (in a new terminal window):
+```npm run server-dev```
+
 
 ### Roadmap
 
@@ -53,7 +67,7 @@ npm install
 - Google Cal integration
 - Predict the future
 
-- See diagram for arcitecture and mvp+ features (shown highlighted in grey) 
+- See diagram for arcitecture and mvp+ features (shown highlighted in grey)
 - https://docs.google.com/drawings/d/1iH1lvPSc7Arz6kDMuYgxh8z5ffp6A4q_RGDtDKyb3ck/edit?usp=sharing
 
 ## Contributing
