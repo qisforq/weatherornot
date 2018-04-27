@@ -32,11 +32,10 @@ TBD
 
 
 1. Fork and clone:
-```
-git clone https://github.com/hr-jonson/weatherornot.git
-```
+```git clone https://github.com/hr-jonson/weatherornot.git```
 
-2. From within the root directory: `npm install`
+2. From within the root directory: 
+`npm install`
 
 3. Start the database (in a new terminal window):
 ```
@@ -44,9 +43,11 @@ mysql.server start
 npm run sql-dev
 ```
 
-4. start webpack (in a new terminal window): ```npm run react-dev```
+4. start webpack (in a new terminal window):
+```npm run react-dev```
 
-5. start local server (in a new terminal window): ```npm run server-dev```
+5. start local server (in a new terminal window): 
+```npm run server-dev```
 
 
 ### Roadmap
